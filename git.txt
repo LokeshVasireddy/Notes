@@ -1,0 +1,162 @@
+Git config --global user.name "name"
+Git config --global user.email "email"
+
+Git log --oneline //shows commits
+
+Git status -s //gives the status of the files
+
+git config --list is used to display all Git configuration settings
+git remote -v
+Git remote remove <link>
+git remote show origin
+Git fetch <remot_name>
+
+git rm --cached filename.txt(Remove a file only from Git)
+Git init
+Git remote add origin link
+git remote set-url origin <link>
+
+
+
+
+
+git fetch
+👉 Gets new data from the remote repository(updating remote-tracking branches(origin/main))
+(no code comparison, no file changes)
+
+git diff
+
+👉 Shows differences between two states of code
+(no downloading, no updating)
+| `git fetch`                      | `git diff`             |
+| -------------------------------- | ---------------------- |
+| Downloads changes                | Shows differences      |
+| Updates remote-tracking branches | No changes to repo     |
+| Network operation                | Local operation        |
+| Does not show code differences   | Shows code differences |
+
+git remote prune origin
+checks the remote origin
+finds remote branches that were deleted
+removes their remote-tracking branches locally
+
+
+| Merge                    | Rebase                        |
+| ------------------------ | ----------------------------- |
+| Preserves history        | Rewrites history              |
+| Creates merge commit     | No merge commit               |
+| Safe for shared branches | Dangerous for shared branches |
+| Non-linear history       | Linear history                |
+
+
+SSH (Secure Shell)
+SSH is a secure network protocol used to connect to remote computers securely and transfer data in encrypted form.
+In Git, SSH is used to authenticate and communicate with remote repositories without entering a username and password every time.
+You create an SSH key pair (public + private)
+
+Public key is added to GitHub/GitLab
+
+Private key stays on your computer
+
+Git uses the key to authenticate securely
+
+Reset(rewrites history)
+-----
+git reset moves the HEAD (and optionally branch pointer, staging area, and working directory) to a specified commit.
+Git reset --hard  HEAD~1//
+
+1️⃣ git reset --soft 🟢
+git reset --soft HEAD~1
+What it affects
+
+✅ Moves HEAD
+
+❌ Does NOT touch staging
+
+❌ Does NOT touch working directory
+Undo commit but keep changes staged
+
+2️⃣ git reset --mixed 🟡 (DEFAULT)
+git reset --mixed HEAD~1
+What it affects
+
+✅ Moves HEAD
+
+✅ Resets staging area
+
+❌ Does NOT touch working directory
+
+3️⃣ git reset --hard 🔴 (DANGEROUS)
+
+What it affects
+
+✅ Moves HEAD
+
+✅ Resets staging
+
+✅ Resets working directory
+
+
+Revert(preserves history)
+------
+git revert creates a new commit that undoes the changes of a specific commit without rewriting Git history.
+Instead of removing a commit, it adds another commit that reverses it.
+
+git revert <commit-hash>
+git revert HEAD~3..HEAD
+
+Reverting a merge commit 
+
+git revert -m 1 <merge-commit-hash>
+-m 1 → parent branch to keep
+
+
+Restore
+--------
+git restore is used to restore files in the working directory or staging area from a commit, index, or HEAD.
+It undoes file changes
+
+It does NOT touch commit history
+
+✅ You messed up a file
+✅ You want to unstage changes
+✅ You want to discard local edits
+❌ You want to undo a commit → use git revert
+
+Undo changes not yet staged:git restore file.txt
+
+git restore --staged file.txt
+✔ Removes file from staging
+✔ Keeps changes in working directory
+
+Patch
+-----
+git diff > changes.patch (Differences between your working directory and the staging area (index)
+git diff HEAD~1 HEAD > last_commit.patch
+Or
+git format-patch HEAD~1
+git apply changes.patch
+
+
+
+Branching
+---------
+Issue is called conflict.
+
+Git branch name
+Git switch -c name //create and switch
+Git branch -d name
+
+Be in main and use 	git merge branch name
+
+Merging techniques:- fast forward merge, three way merge
+
+Git stash
+Git stash apply
+Git stash clear
+
+
+git pull        # = fetch + merge
+# or
+git rebase origin/main
+
