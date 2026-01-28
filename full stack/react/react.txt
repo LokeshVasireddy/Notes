@@ -1,0 +1,45 @@
+Named Export
+-------------
+You export multiple values from a file, each with its own name.
+
+Default Export
+------------
+You export one main value from a file.
+
+| Feature                | React                   | Next.js                  |
+| ---------------------- | ----------------------- | ------------------------ |
+| What it is             | UI library              | Full React framework     |
+| Uses React?            | —                       | ✅ Yes                   |
+| Routing                | ❌ Manual (React Router)| ✅ Built-in (file-based)|
+| Server-side rendering  | ❌ No                   | ✅ Yes                  |
+| Static site generation | ❌ No                   | ✅ Yes                  |
+| API routes (backend)   | ❌ No                   | ✅ Yes                  |
+| SEO                    | ⚠️ Extra work           | ✅ Much better by default|
+| Setup decisions        | You decide everything   | Decisions made for you   |
+| Learning curve         | Easier at first         | Slightly more concepts   |
+
+
+| Feature                  | Real DOM   | Virtual DOM        |
+| ------------------------ | ---------- | ------------------ |
+| Update speed             | Slow       | Fast               |
+| Re-render scope          | Whole tree | Only changed nodes |
+| Memory usage             | Lower      | Slightly higher    |
+| Developer effort         | High       | Low                |
+| Performance (large apps) | Poor       | Excellent          |
+
+
+ReactDOM
+-----------
+ReactDOM is the package that connects React to the browser DOM.
+What it does
+Takes React components
+Renders them into real HTML elements
+Updates the DOM efficiently
+
+React.StrictMode
+----------------
+React.StrictMode is a development-only tool that helps you find bugs early.
+What it does
+Runs extra checks
+Warns about unsafe patterns
+Intentionally re-renders components to expose bugs

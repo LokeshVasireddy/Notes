@@ -1,0 +1,39 @@
+Polling
+------
+Polling is a technique where a client repeatedly asks a server,which is an overkill.to solve this we have web sockets.
+
+Web sockets
+---------
+Initially client sends an http request to server in those headers server is asked to upgrade it to web sockets.
+Server handles it and sends an id.
+
+The HTTP Upgrade request and response header can be used to upgrade an already-established client/server connection to a different protocol (over the same transport protocol).
+
+
+The main purpose is:
+To serve static files (like HTML, CSS, JS, images) to clients from a specific folder.
+🔹 What “static” means here
+Static files are files that don’t change on the server.
+Examples:
+index.html → web page
+style.css → styles
+script.js → client-side JavaScript
+Images (.png, .jpg, etc.) For example, it can be used by a client to upgrade a connection from HTTP/1.1 to HTTP/2, or an HTTP(S) connection to a WebSocket connection.
+Access in browser:
+http://localhost:3000/ex.js
+http://localhost:3000/style.css
+
+app.use(express.static("folder")) makes all files in that folder available to the client over HTTP — like putting your files on a mini web server automatically.
+
+
+
+What is NGINX?
+-----------------
+NGINX (pronounced “engine-x”) is a high-performance web server and reverse proxy server.
+
+It’s widely used for:
+Serving static websites (HTML, CSS, JS, images)
+Reverse proxying (forwarding requests to backend servers)
+Load balancing (distributing traffic across multiple servers)
+Caching (storing responses to improve performance)
+SSL/TLS termination (handling HTTPS connections)

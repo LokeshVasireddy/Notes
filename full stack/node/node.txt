@@ -1,0 +1,129 @@
+In Express, an API route is just a URL endpoint that sends or receives data — typically JSON — rather than HTML.(Application Programming Interface (API))
+
+What is a RESTful API?
+REST stands for Representational State Transfer.
+Key Principles of RESTful APIs
+
+Stateless – Each request contains all info the server needs.
+Resource-based – URLs represent resources (users, posts, products, etc.).
+Use proper HTTP methods – GET, POST, PUT, DELETE.
+Return proper status codes – 200 OK, 201 Created, 404 Not Found, 500 Internal Server Error.
+Use JSON – For sending and receiving data.(no html)
+
+Modules in node.js
+------------------
+module.exports.({add, sub}) //multiple exports(no override)
+Exports.add=(alb)=>a+b //solo export
+
+fileHandling
+------------
+fs.readFileSync("./example.txt","utf-8") //returns data but not in case of asyhcronous
+
+
+
+Request goes to event queue.it goes event loop.
+For blocking operation it goes to thread pool.we have thread which are workers and returns the result.
+Number of threads Number of CPU cores
+
+Url module(***** imp learn more)
+---------
+const { URL } = require('url');
+const myURL = new URL('https://example.com:8080/path?name=John#section1');
+console.log(myURL.hostname);  // 'example.com'
+console.log(myURL.port);      // '8080'
+console.log(myURL.pathname);  // '/path'
+console.log(myURL.search);    // '?name=John'
+console.log(myURL.hash);      // '#section1'
+
+| Property                | Description             | Example Value                                                        |
+| ----------------------- | ----------------------- | -------------------------------------------------------------------- |
+| `href`                  | Full URL                | `'https://user:pass@sub.example.com:8080/p/a/t/h?query=string#hash'` |
+| `origin`                | Protocol + Host         | `'https://sub.example.com:8080'`                                     |
+| `protocol`              | URL scheme              | `'https:'`                                                           |
+| `username` / `password` | Auth credentials        | `'user'` / `'pass'`                                                  |
+| `host`                  | Host + Port             | `'sub.example.com:8080'`                                             |
+| `hostname`              | Host only               | `'sub.example.com'`                                                  |
+| `port`                  | Port number             | `'8080'`                                                             |
+| `pathname`              | Path section            | `'/p/a/t/h'`                                                         |
+| `search`                | Query string            | `'?query=string'`                                                    |
+| `searchParams`          | Easy query manipulation | `myURL.searchParams.get('query')`                                    |
+| `hash`                  | Fragment identifier     | `'#hash'`                                                            |
+
+
+
+Server
+-------
+URL-uniform resource locator
+Https://google.com/path
+Protocol://domain name/
+
+Query parameters
+----------------
+google.com/about?userid=1&a=2
+
+HTTP methods
+-----------
+GET,POST,PUT,PATCH,Delete
+
+Versioning 
+----------
+Express:^4.18.5
+5-Minor fixes(optional)
+18-bug fix or security fix(need to update)
+4-Major release(careful before update)
+^-when we try to update except 4 other gets updated
+~-only 3rd part is changed
+
+App.route('/api/users/:id').get(..).put()../for multiple methods
+
+
+express.urlencoded()//converts url encoded forms to objects
+
+Http headers
+------------
+res.setHeader('myNAme","priyush gara") 
+
+HTTP status code
+----------------
+Informational responses (100 – 199)
+Successful responses (200 – 299)
+Redirection messages (300 – 399)
+Client error responses (400 – 499)
+Server error responses (500 – 599)
+
+
+Atuntecation
+------------
+Stateful-which maintains data on server side
+Stateless-which doesn't(JWT)
+
+Stateful
+--------
+Enter username and password it gives session uid
+Uid can be given through cookies,response,headers.
+Cookies are just small pieces of data stored in your browser. Websites ask for them to improve your experience, track activity, or serve ads — not all cookies are for “spying.”
+
+| Feature               | Cookie-based Auth                                        | Token-based Auth (JWT)                                          |
+| --------------------- | -------------------------------------------------------- | --------------------------------------------------------------- |
+| Storage               | Browser automatically stores cookies                     | Usually localStorage, sessionStorage, or in-memory              |
+| Sent with request     | Automatically sent with every request to the same domain | Client must manually attach token in `Authorization` header     |
+| Server state          | **Stateful**: server keeps session info                  | **Stateless**: server doesn’t store session (JWT contains info) |
+| Scalability           | Harder for multiple servers (need shared session store)  | Easier for distributed systems (no server state)                |
+| CSRF risk             | Higher if cookies not protected                          | Lower (if using Authorization header)                           |
+| Mobile / cross-domain | Harder                                                   | Easier (token works anywhere)                                   |
+
+
+Authorization: Bearer <token>
+
+
+Node JS streams
+---------------
+We have a file and want to take that conentnt and send it to user but during that process it will take memory because we store it in variable after reading and then send it.we use streams
+
+
+Const stream fs.createReadStream('./sample.txt',utf-8);
+stream.on("data",,(chunk)=>res.write(chunk));
+stream.on('end',()=>res.end());
+Transfer-Encoding:- chunked //header;
+
+Real-life example:=convert files into zip file

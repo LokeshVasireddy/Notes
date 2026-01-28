@@ -1,0 +1,179 @@
+| Code | Meaning      |
+| ---- | ------------ |
+| 200  | Success      |
+| 201  | Created      |
+| 400  | Bad request  |
+| 401  | Unauthorized |
+| 404  | Not found    |
+| 500  | Server error |
+
+hat is an API?
+
+API (Application Programming Interface) is a set of rules that allows one software application to communicate with another.
+
+In simple words:
+👉 API is a messenger that takes a request, tells another system what to do, and returns a response.
+
+Stateless HTTP
+--------------
+Default behavior of HTTP
+
+Every request is independent
+
+Server does NOT remember previous requests
+
+Each request must contain all necessary information
+
+Stateful http
+----------
+HTTP + extra mechanisms to remember state
+
+HTTP itself is stateless, but we simulate state using:
+
+Cookies 🍪
+
+Sessions
+
+Tokens (JWT)
+
+URL parameters
+
+
+Cookies
+-------
+A cookie is a small piece of data stored in the browser and automatically sent with every HTTP request to the same domain.
+User logs in
+
+Server responds with Set-Cookie
+
+Browser saves the cookie
+
+Browser sends cookie with every future request
+
+Server reads cookie → identifies user
+HttpOnly → JS can’t read it (prevents XSS)
+
+Secure → HTTPS only
+
+SameSite → protects against CSRF
+
+Session
+-------
+A session stores user data on the server, while the client only holds a session ID (usually in a cookie).
+
+JWT
+----
+A JWT is a self-contained token that holds user data and is cryptographically signed.
+
+User logs in
+
+Server generates JWT
+
+Token sent to client
+
+Client sends JWT in Authorization: Bearer <token>
+
+Server verifies signature → trusts data
+
+| Feature      | Cookies         | Sessions       | JWT         |
+| ------------ | --------------- | -------------- | ----------- |
+| Stored where | Browser         | Server         | Client      |
+| Server state | ❌ No            | ✅ Yes          | ❌ No        |
+| Auto-sent    | ✅ Yes           | ✅ (via cookie) | ❌ No        |
+| Scales well  | ⚠️ Medium       | ❌ Poor         | ✅ Excellent |
+| Easy logout  | ⚠️ Partial      | ✅ Yes          | ❌ Hard      |
+| Security     | ⚠️ Config-based | ✅ High         | ⚠️ Depends  |
+
+
+
+HTTPS = HTTP + TLS encryption
+HTTPS uses two types of encryption:
+
+Asymmetric encryption (public/private keys)
+
+Symmetric encryption (shared secret key)
+
+1️⃣ Handshake (key agreement)
+
+When you visit https://example.com:
+
+Browser says: “Hey, I support these ciphers”
+
+Server sends:
+
+Its public key
+
+Its certificate
+
+Browser:
+
+Verifies the certificate
+
+Creates a shared secret
+
+Encrypts it using the server’s public key
+
+Server decrypts it using its private key
+
+
+
+
+
+
+CORS (Cross-Origin Resource Sharing)
+
+CORS is a browser security rule that controls which websites are allowed to call your API.
+
+It exists to protect users — not servers.
+
+
+A preflight request is a browser-initiated check that happens before certain cross-origin HTTP requests to make sure the server allows them.
+It is an HTTP OPTIONS request sent automatically by the browser.
+This is part of CORS (Cross-Origin Resource Sharing).
+
+No preflight refutes when:
+No preflight for:
+
+GET / POST
+
+No custom headers
+
+Simple content types
+
+No credentials (or allowed)
+
+
+
+
+Protocols
+---------
+Http: hyper text transfer protocol
+DNS(domain main system): transfer the name into ip address for the understanding of servers
+
+
+
+
+1. What is the Internet?
+The Internet is a global network of interconnected computers that communicate using standard protocols.
+
+2. How the Internet Works?
+When you send data over the internet, it is broken up into small packets that are sent from your device to a router.IP is responsible for routing packets to their correct destination, while TCP ensures that packets are transmitted reliably and in the correct order.
+
+Packet: A small unit of data that is transmitted over the internet.
+Router: A device that directs packets of data between different networks.
+IP Address: A unique identifier assigned to each device on a network, used to route data to the correct destination.
+Domain Name: A human-readable name that is used to identify a website, such as google.com.
+DNS: The Domain Name System is responsible for translating domain names into IP addresses.
+HTTP: The Hypertext Transfer Protocol is used to transfer data between a client (such as a web browser) and a server (such as a website).
+HTTPS: An encrypted version of HTTP that is used to provide secure communication between a client and server.
+SSL/TLS: The Secure Sockets Layer and Transport Layer Security protocols are used to provide secure communication over the internet.
+
+
+IP is responsible for routing packets of data to their correct destination, while TCP and UDP ensure that packets are transmitted reliably and efficiently. 
+DNS is used to translate domain names into IP addresses, and HTTP is used to transfer data between clients and servers.
+
+Ports: Ports are used to identify the application or service running on a device. Each application or service is assigned a unique port number, allowing data to be sent to the correct destination.
+Sockets: A socket is a combination of an IP address and a port number, representing a specific endpoint for communication. Sockets are used to establish connections between devices and transfer data between applications.
+Connections: A connection is established between two sockets when two devices want to communicate with each other. During the connection establishment process, the devices negotiate various parameters such as the maximum segment size and window size, which determine how data will be transmitted over the connection.
+Data transfer: Once a connection is established, data can be transferred between the applications running on each device. Data is typically transmitted in segments, with each segment containing a sequence number and other metadata to ensure reliable delivery.
+

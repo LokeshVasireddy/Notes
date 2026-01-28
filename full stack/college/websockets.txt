@@ -1,0 +1,115 @@
+Log Level
+---------
+Log levels classify log messages by severity and purpose, helping developers debug, monitor, and troubleshoot systems without noise.
+
+TRACE → DEBUG → INFO → WARN → ERROR → FATAL
+Audit logging
+
+
+ETag (Entity Tag)
+----------------
+ETag is an HTTP response header used for cache validation.
+
+If-None-Match
+Purpose
+
+Used mainly with GET requests for caching optimization.
+
+“Give me the resource only if it has changed from the version I already have.”
+200 OK
+ETag: "v1-abc"
+
+
+If current ETag == "v1-abc"
+→ Resource unchanged
+→ Respond 304 Not Modified
+
+2️⃣ If-Match
+-------------
+Purpose
+
+Used mainly with PUT / PATCH / DELETE for concurrency control.
+
+“Perform this operation only if the resource is still the version I know.”
+
+This prevents lost updates.
+If current ETag == "v1-abc"
+→ Update allowed
+→ Respond 200 OK + new ETag
+
+If current ETag != "v1-abc"
+→ Resource modified by someone else
+→ Respond 412 Precondition Failed
+
+| Feature             | Strong ETag  | Weak ETag       |
+| ------------------- | ------------ | --------------- |
+| Prefix              | None         | `W/`            |
+| Comparison          | Byte-by-byte | Semantic        |
+| Sensitivity         | Very strict  | Relaxed         |
+| Used with           | `If-Match`   | `If-None-Match` |
+| Prevents overwrites | ✅            | ❌               |
+| Best for            | Writes       | Caching         |
+
+Circuit Breaker
+--------------
+A Circuit Breaker is like an automatic switch that stops calling a failing service so your system doesn’t keep hurting itself.
+
+Closed (Normal)
+----------------
+Requests flow normally
+Failures are counted
+
+Open (Tripped)
+-------------
+Too many failures detected
+Requests are blocked immediately
+Optional fallback is returned
+
+Half-Open (Test)
+----------------
+After a cool-down, allow a few test requests
+If they succeed → close
+If they fail → open again
+
+
+2️⃣ Bulkhead
+-------------
+A Bulkhead isolates parts of a system so one failure doesn’t sink everything.
+
+You separate resources:
+
+Thread pools
+Connection pools
+Queues
+
+Auth service → 20 threads
+Payment service → 10 threads
+Reports → 5 threads
+If reports hang → auth & payments still work.
+
+
+Types of Bulkheads
+
+Thread-pool bulkhead
+-------------------
+Separate thread pools per dependency
+
+Semaphore bulkhead
+------------------
+Limit concurrent calls (counting permits)
+
+| Aspect    | Circuit Breaker              | Bulkhead            |
+| --------- | ---------------------------- | ------------------- |
+| Purpose   | Stop calling failing service | Isolate resources   |
+| Trigger   | Failure rate / timeouts      | Concurrency limits  |
+| Prevents  | Cascading failures           | Resource starvation |
+| Behavior  | Fail fast                    | Contain damage      |
+| Used when | Dependency is unhealthy      | Workloads differ    |
+
+Circuit Breaker:
+
+Prevents repeated calls to a failing service by failing fast and allowing recovery.
+
+Bulkhead:
+
+Isolates resources so a failure in one part of the system doesn’t affect others.

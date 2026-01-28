@@ -1,0 +1,140 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root"))
+  .render(<App />);
+
+| Package     | What it does                  |
+| ----------- | ----------------------------- |
+| `react`     | Components, hooks, JSX, state |
+| `react-dom` | Talks to the browser DOM      |
+
+
+
+React is a JavaScript library for building user interfaces, mainly for Single Page Applications (SPA).
+
+A React component is a reusable, self-contained piece of UI that returns what should appear on the screen.
+
+What React.StrictMode is
+
+A wrapper component that intentionally runs extra checks in development.
+
+🔹 MPA (Multi Page Application)
+
+Page reload on every request
+
+Server renders new HTML
+
+Slower UX
+
+🔹 SPA (Single Page Application)
+
+Single HTML file
+
+JS updates UI dynamically
+
+Faster, smoother experience
+
+| Feature       | MPA              | SPA         |
+| ------------- | ---------------- | ----------- |
+| Page reloads  | Every navigation | Once        |
+| Routing       | Server-side      | Client-side |
+| UX            | Traditional      | App-like    |
+| SEO           | Easy             | Needs setup |
+| Initial load  | Fast             | Slower      |
+| JS dependency | Low              | High        |
+| Complexity    | Lower            | Higher      |
+
+
+Hooks
+------
+Hooks let functional components use state and lifecycle features (earlier only possible in class components).
+Hooks allow us to use React features like state and lifecycle methods inside functional components.
+
+Rules of Hooks
+Rule 1: Call hooks at the top level
+
+❌ Not inside loops, conditions, or functions
+
+Rule 2: Call hooks only inside React functions
+
+✔️ Functional components
+✔️ Custom hooks
+
+
+To keep hook call order consistent across renders.
+
+
+Usestate
+-------
+useState is a React Hook that lets a functional component store, read, and update state.
+const [count, setCount] = useState(0);
+setCount(prev => prev + 1);
+
+const [user, setUser] = useState({
+  name: "Loki",
+  age: 25
+});
+
+setUser(prev => ({
+  ...prev,
+  age: prev.age + 1
+}));
+
+
+
+Re-render
+
+State/props change
+
+Component function runs again
+
+State is preserved
+
+Re-mount
+
+Component removed & added
+
+State resets
+
+
+
+useRef
+------
+useRef lets you store a mutable value that persists across renders without causing a re-render.
+import { useRef } from "react";
+
+const ref = useRef(initialValue);
+Returns an object: { current: initialValue }
+
+The object stays the same between renders
+
+
+
+
+useReducer
+----------
+useReducer is a Hook used to manage complex state logic using a reducer function.
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "INC": return { count: state.count + 1 };
+    case "DEC": return { count: state.count - 1 };
+    default: return state;
+  }
+};
+
+const [state, dispatch] = useReducer(reducer, { count: 0 });
+
+
+useContext
+📘 Definition
+------------
+useContext is a Hook used to access shared data from React Context without prop drilling.
+
+useEffect Hook (React)
+---------------
+useEffect is used to handle side effects in functional components.
+useEffect is a React Hook that lets you perform side effects such as data fetching, subscriptions, 
+and DOM updates after rendering.

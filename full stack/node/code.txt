@@ -1,0 +1,10 @@
+Path.resolve()
+--------------
+const path = require('path');
+const fullPath = path.resolve('public', 'ex.js');
+console.log(fullPath);
+
+If your project folder is /Users/alice/project, output:
+
+/Users/alice/project/public/ex.js
+
