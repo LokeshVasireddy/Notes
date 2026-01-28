@@ -1,0 +1,367 @@
+db.users.insertOne({ name: "John", age: 25 })
+
+db.users.find({ city: "Hyderabad", age: 21 })
+db.users.find({
+  $and: [
+    { city: "Delhi" },
+    { age: { $gt: 25 } }
+  ]
+})
+db.users.find({
+  $or: [
+    { city: "Mumbai" },
+    { age: { $lt: 25 } }
+  ]
+})
+db.users.find({
+  city: { $not: { $eq: "Delhi" } }
+})
+db.users.find({
+  $nor: [
+    { city: "Delhi" },
+    { age: { $gt: 25 } }. //all should be false
+  ]
+})
+db.users.find({
+  age: { $mod: [5, 0] }
+})
+
+
+
+db.users.find({}, { name: 1, city: 1, _id: 0 }) 
+MongoDB find() has two arguments:
+
+1️⃣ Query / Filter condition
+2️⃣ Projection (fields to show or hide)
+
+Example:
+db.users.find(
+  { city: "Delhi" },
+  { name: 1, city: 1, _id: 0 }
+);
+
+
+IN operator
+----------
+db.users.find({ age: { $in: [25, 35] } })
+Output:-
+{ name: "Alice", age: 25 }
+{ name: "Charlie", age: 35 }
+
+All operator
+------------
+Array must contain all values
+db.users.find({
+  tags: { $all: ["mongodb", "backend"] }
+})
+
+. Match arrays by length
+db.users.find({
+  scores: { $size: 3 }
+})
+
+printjson(
+  db.deliveries.find(
+    {
+      $expr: { $gt: [ { $size: "$packages" }, 3 ] }
+    },
+    {
+      _id: 0,
+      customerId: 1,
+      packages: 1
+    }
+  )
+  .sort({ createdAt: -1 })
+  .limit(5)
+)
+
+
+
+
+db.users.find({
+  "comments.user": "Bob"
+})
+
+db.users.find({
+  comments: {
+    $elemMatch: {
+      user: "Carol",
+      likes: { $gt: 5 }
+    }
+  }
+})
+
+
+Find users where spent > budget
+db.users.find({
+  $expr: { $gt: ["$spent", "$budget"] }
+})
+
+db.users.find({
+  $expr: {
+    $gt: [{ $sum: "$scores" }, 250]
+  }
+})
+
+
+
+| Operator | Meaning          | Example                      |
+| -------- | ---------------- | ---------------------------- |
+| `$eq`    | Equal            | `{ age: { $eq: 21 } }`       |
+| `$ne`    | Not equal        | `{ city: { $ne: "Delhi" } }` |
+| `$gt`    | Greater than     | `{ age: { $gt: 25 } }`       |
+| `$lt`    | Less than        | `{ age: { $lt: 25 } }`       |
+| `$gte`   | Greater or equal | `{ age: { $gte: 25 } }`      |
+| `$lte`   | Less or equal    | `{ age: { $lte: 25 } }`      |
+
+| Operator    | Description                                     | Example                  |
+| ----------- | ----------------------------------------------- | ------------------------ |
+| `$sum`      | Adds up values or counts documents              | `{ $sum: 1 }`            |
+| `$avg`      | Calculates average                              | `{ $avg: "$age" }`       |
+| `$min`      | Finds smallest value                            | `{ $min: "$age" }`       |
+| `$max`      | Finds largest value                             | `{ $max: "$age" }`       |
+| `$push`     | Puts values into an array (may have duplicates) | `{ $push: "$name" }`     |
+| `$addToSet` | Adds unique values to an array                  | `{ $addToSet: "$city" }` |
+| `$first`    | Takes the first document’s field                | `{ $first: "$name" }`    |
+| `$last`     | Takes the last document’s field                 | `{ $last: "$name" }`     |
+
+
+db.users.find().sort({ age: 1 })
+db.users.find().sort({ age: -1 })(descending)
+db.users.find().limit(2)
+db.students.find().skip(2) -> skip first 2
+db.users.countDocuments({ city: "Hyderabad" })
+
+db.users.updateOne(
+  { name: "Lokesh" },
+  { $set: { city: "Delhi" } }  //changes city to Delhi
+)
+
+db.users.updateMany(
+  { city: "Hyderabad" },
+  { $set: { verified: true } } //updates many
+)
+
+db.users.deleteOne({ name: "Aarav" })
+db.users.deleteMany({ city: "Bangalore" })
+
+db.users.aggregate([
+  {
+    $group: {
+      _id: "$city",
+      totalUsers: { $sum: 1 }
+    }
+  },
+  {
+    $sort: { totalUsers: -1 }   // -1 for descending, 1 for ascending
+  }
+]);
+
+
+db.users.aggregate([
+  { $group: { _id: "$city", totalUsers: { $sum: 1 } } } //counts all users in a city
+])
+db.sales.aggregate([
+  {
+    $group: {
+      _id: "$city",
+      totalSales: { $sum: { $multiply: ["$price", "$quantity"] } }. // total sales per city
+    }
+  }
+])
+db.sales.aggregate([
+  {
+    $group: {
+      _id: "$city",
+      itemsSold: { $push: "$item" }
+    }
+  }
+])
+
+
+db.users.aggregate([
+  { $match: { city: "Paris" } }, //filters city
+  {
+    $project: {
+      username: 1,
+      city: 1,
+      welcomeMsg: { $concat: ["Bonjour, ", "$username", "!"] } // only shows these fields
+    }
+  }
+])
+db.sales.aggregate([
+  { $match: { city: "Delhi" } },
+  {
+    $group: {
+      _id: "$item",
+      totalRevenue: { $sum: { $multiply: ["$price", "$quantity"] } }
+    }
+  }
+])
+
+db.users.aggregate([{ $match: { age: 20 } }, { $count: "total" }])  ///[ { "total": 2 } ]\
+
+
+
+
+{
+  $project: {
+    itemNames: {
+      $map: {
+        input: "$items",
+        as: "item",
+        in: "$$item.name"
+      }
+    }
+  }
+}
+
+
+
+{
+  $project: {
+    itemsWithTax: {
+      $map: {
+        input: "$items",
+        as: "i",
+        in: {
+          name: "$$i.name",
+          finalPrice: { $multiply: ["$$i.price", 1.18] }
+        }
+      }
+    }
+  }
+}
+
+{
+  $project: {
+    expensiveItems: {
+      $filter: {
+        input: "$items",
+        as: "item",
+        cond: { $gte: ["$$item.price", 100] }
+      }
+    }
+  }
+}
+
+
+{
+  $project: {
+    expensiveItemNames: {
+      $map: {
+        input: {
+          $filter: {
+            input: "$items",
+            as: "i",
+            cond: { $gte: ["$$i.price", 100] }
+          }
+        },
+        as: "i",
+        in: "$$i.name"
+      }
+    }
+  }
+}
+
+
+{
+  $project: {
+    totalPrice: {
+      $reduce: {
+        input: "$items",
+        initialValue: 0,
+        in: { $add: ["$$value", "$$this.price"] }
+      }
+    }
+  }
+}
+
+{
+  $project: {
+    itemList: {
+      $reduce: {
+        input: "$items",
+        initialValue: "",
+        in: {
+          $concat: [
+            "$$value",
+            { $cond: [{ $eq: ["$$value", ""] }, "", ", "] },
+            "$$this.name"
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+
+Compute bulkItemCount: total quantity of items where qty ≥ 2
+
+
+printjson(
+  db.orders.aggregate([
+    {
+      $project: {
+        userId: 1,
+        _id: 0,
+        bulkItemCount: {
+          $sum: {
+            $map: {
+              input: {
+                $filter: {
+                  input: "$items",
+                  as: "i",
+                  cond: { $gte: ["$$i.qty", 2] }
+                }
+              },
+              as: "i",
+              in: "$$i.qty"
+            }
+          }
+        }
+      }
+    }
+  ])
+)
+
+
+Alternative
+
+printjson(
+  db.orders.aggregate([
+    {
+      $project: {
+        userId: 1,
+        _id: 0,
+        bulkItemCount: {
+          $reduce: {
+            input: "$items",
+            initialValue: 0,
+            in: {
+              $cond: [
+                { $gte: ["$$this.qty", 2] },
+                { $add: ["$$value", "$$this.qty"] },
+                "$$value"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ])
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
