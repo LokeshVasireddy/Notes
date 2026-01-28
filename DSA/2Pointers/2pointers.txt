@@ -1,0 +1,35 @@
+556. Next Greater Element III
+Medium
+Topics
+premium lock icon
+Companies
+Given a positive integer n, find the smallest integer which has exactly the same digits existing in the integer n and is greater in value than n. If no such positive integer exists, return -1.
+
+Note that the returned integer should fit in 32-bit integer, if there is a valid answer but it does not fit in 32-bit integer, return -1.
+
+class Solution {
+public:
+    int nextGreaterElement(int n) {
+        string s = to_string(n);
+
+        // Step 1: Find the first decreasing digit from the end
+        int i = s.size() - 2;
+        while (i >= 0 && s[i] >= s[i + 1]) i--;
+
+        if (i < 0) return -1;  // Already the highest permutation
+
+        // Step 2: Find the smallest digit on right side > s[i]
+        int j = s.size() - 1;
+        while (s[j] <= s[i]) j--;
+
+        // Step 3: Swap
+        swap(s[i], s[j]);
+
+        // Step 4: Reverse the suffix
+        reverse(s.begin() + i + 1, s.end());
+
+        // Step 5: Convert back to number and check overflow
+        long result = stol(s);
+        return (result > INT_MAX) ? -1 : result;
+    }
+};

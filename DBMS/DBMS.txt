@@ -1,0 +1,195 @@
+| Feature           | File System | DBMS       |
+| ----------------- | ----------- | ---------- |
+| Redundancy        | High        | Controlled |
+| Security          | ❌           | ✅          |
+| Concurrency       | ❌           | ✅          |
+| Backup & Recovery | ❌           | ✅          |
+| Data Integrity    | ❌           | ✅          |
+
+DBMS Architecture (IMPORTANT)
+🔹 1-Tier Architecture
+
+User directly interacts with DB
+
+Used for local applications
+
+Example: SQLite
+
+🔹 2-Tier Architecture
+
+Client ↔ DB server
+
+Used in desktop apps
+
+🔹 3-Tier Architecture (🔥 VERY IMPORTANT)
+
+Presentation layer (UI)
+
+Application layer (logic)
+
+Database layer
+Browser → Server → Database
+
+
+
+Core Components of DBMS
+🔹 Query Processor
+
+Parses SQL
+Optimizes query
+Executes query
+
+🔹 Storage Manager
+
+Manages files
+Manages memory
+Handles transactions
+
+🔹 Transaction Manager
+
+Ensures ACID properties
+Handles commit & rollback
+
+
+
+ER (Entity–Relationship) model is a conceptual data model used to design a database.
+ER model shows what data to store and how data is related.
+
+An entity is a real-world object that can be uniquely identified.
+
+
+
+Types of Entities
+1️⃣ Strong Entity
+
+Has its own primary key
+
+Example: Student (RollNo)
+
+2️⃣ Weak Entity (🔥 EXAM FAVORITE)
+
+Does not have a primary key
+
+Depends on a strong entity
+
+Has a partial key
+
+
+
+| Type          | Meaning         | Example            |
+| ------------- | --------------- | ------------------ |
+| Simple        | Atomic          | Age                |
+| Composite     | Has sub-parts   | Name → First, Last |
+| Single-valued | One value       | RollNo             |
+| Multi-valued  | Multiple values | Phone numbers      |
+| Derived       | Calculated      | Age from DOB       |
+
+
+
+
+1️⃣ Total Participation
+
+Every entity must participate
+
+Represented by double line
+
+2️⃣ Partial Participation
+
+Some entities may not participate
+
+Represented by single line
+
+
+
+2️⃣ Schema vs Instance (VERY COMMON)
+
+Schema → Structure of table (fixed)
+
+Instance → Data inside table (changes frequently)
+
+
+
+Keys
+----
+a key is an attribute or a set of attributes that helps in uniquely identifying a tuple (row) in a relation (table). 
+Keys play a crucial role in maintaining data integrity, establishing relationships between tables, and supporting normaliza
+
+
+Super key
+--------
+A super key is a set of one or more attributes that can uniquely identify a row (tuple) in a table.
+
+Candidate Key (DBMS)
+
+A candidate key is a minimal set of attributes that can uniquely identify a row (tuple) in a table.
+
+Secondary KeyA secondary key is used for searching and indexing but does not uniquely identify records
+
+
+Cursor
+-----
+A Cursor in DBMS is a database object used to retrieve, process, and manipulate records row by row from a result set returned by an SQL query. 
+Normally, SQL works on a set of rows at a time, but cursors allow tuple-by-tuple processing.
+
+
+What is Indexing?
+🔹 Definition (INTERVIEW ONE-LINER)
+
+Indexing is a data structure technique used to speed up data retrieval from a database table.
+
+Types of Indexes
+----------------
+1.Primary Index
+
+Built on primary key
+
+Data is stored in sorted order
+
+One per table
+
+2️⃣ Secondary Index
+
+Built on non-primary key
+
+Used for searching non-key attributes
+
+3️⃣ Clustered Index (🔥 VERY IMPORTANT)
+
+Data rows are physically sorted
+
+Only ONE clustered index per table
+
+4️⃣ Non-Clustered Index
+
+Index stored separately from data
+
+Can have multiple
+
+| Feature       | B-Tree    | B+ Tree         |
+| ------------- | --------- | --------------- |
+| Data location | All nodes | Leaf nodes only |
+| Range queries | Slower    | Faster          |
+| Disk I/O      | More      | Less            |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

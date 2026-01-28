@@ -1,0 +1,43 @@
+Master's theory
+
+
+
+| Type                      | Description                                               |
+| ------------------------- | --------------------------------------------------------- |
+| 1. **Tail Recursion**     | Recursive call is the last operation                      |
+| 2. **Head Recursion**     | Recursive call happens first, before any processing       |
+| 3. **Tree Recursion**     | Function calls itself more than once                      |
+| 4. **Indirect Recursion** | Function calls another function that calls the first back |
+| 5. **Nested Recursion**   | Recursive call is made inside another recursive call      |
+
+
+Implement pow(x, n), which calculates x raised to the power n (i.e., xn).
+
+class Solution {
+public:
+    double myPow(double x, int n) {
+        // Handle negative exponent
+        long long N = n;  // Use long long to avoid overflow when n = INT_MIN
+        if (N < 0) {
+            x = 1 / x;
+            N = -N;
+        }
+        return power(x, N);
+    }
+
+private:
+    double power(double x, long long n) {
+        if (n == 0) return 1;
+        double half = power(x, n / 2);
+        if (n % 2 == 0) {
+            return half * half;
+        } else {
+            return x * half * half;
+        }
+    }
+};
+
+
+
+
+

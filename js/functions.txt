@@ -1,0 +1,4 @@
+Typeof function=object
+Const vari=funtion greet();
+Type of vari=function
+

@@ -1,0 +1,212 @@
+DOM (Document Object Model)
+The DOM represents the structure of an HTML document as a tree of objects that JavaScript can manipulate.
+BOM (Browser Object Model)
+The BOM represents everything provided by the browser that’s outside the HTML document — like the browser window, history, screen, and navigator.
+
+details.preventDefault();//reload doesn't happen
+
+document.getElementById('id');
+document.getElementsByClassName('className');//Returns an HTMLCollection of elements.
+document.getElementsByTagName('tagName');
+document.querySelector('selector');       // first match
+document.querySelectorAll('selector');    // all matches (NodeList)
+
+Traversing the DOM
+-------------------
+element.parentNode → parent element
+element.children → child elements (HTMLCollection)
+element.childNodes → all child nodes (includes text, comment)
+element.firstChild / element.lastChild
+element.nextSibling / element.previousSibling → next/prev nodes
+element.nextElementSibling / element.previousElementSibling → next/prev elements only
+
+Creating & Inserting Elements
+-----------------------------
+document.createElement('tag') → creates a new element
+document.createTextNode('text') → creates a text node
+
+parent.appendChild(child);         // add to end
+parent.insertBefore(newNode, refNode); // insert before reference node
+element.insertAdjacentHTML(position, htmlString); 
+// positions: 'beforebegin', 'afterbegin', 'beforeend', 'afterend'
+
+element.remove();                  // remove element
+parent.removeChild(child);         // remove child
+
+Modifying Content
+------------------
+element.textContent → sets/gets text content
+element.innerHTML → sets/gets HTML content
+element.innerText → similar to textContent (ignores hidden elements)
+
+Modifying Attributes
+--------------------
+element.getAttribute('attr') → get attribute
+element.setAttribute('attr', value) → set attribute
+element.removeAttribute('attr') → remove attribute
+
+element.style.backgroundColor = "red";
+element.style.display = "none";
+element.classList.add('class');
+element.classList.remove('class');
+element.classList.toggle('class');
+element.classList.contains('class'); // returns true/false
+
+Event Handling 
+----------------
+ // ==========================
+// DOM EVENT HANDLING REFERENCE
+// ==========================
+
+// --------- Selecting Elements ---------
+document.getElementById('id');
+document.getElementsByClassName('className');
+document.getElementsByTagName('tagName');
+document.querySelector('cssSelector');        // first match
+document.querySelectorAll('cssSelector');     // all matches
+
+// --------- Adding & Removing Events ---------
+element.addEventListener('event', function);
+element.removeEventListener('event', function);
+
+// --------- Common Events ---------
+// Mouse Events
+click, dblclick, mouseover, mouseout, mousedown, mouseup, mousemove
+
+// Keyboard Events
+keydown, keyup, keypress
+
+// Input/Form Events
+input, change, focus, blur, submit, reset
+
+// Window/Document Events
+load, resize, scroll, unload, DOMContentLoaded
+
+// --------- Event Object Properties ---------
+event.target        // element that triggered the event
+event.type          // event type
+event.preventDefault()   // stop default action
+event.stopPropagation()  // stop event bubbling
+
+// --------- Event Delegation ---------
+// Attach listener to parent and filter child targets
+parent.addEventListener('click', function(event){
+    if(event.target.matches('childSelector')) {
+        // handle child element
+    }
+});
+
+// --------- Event Flow ---------
+// Capturing Phase -> Target Phase -> Bubbling Phase
+element.addEventListener('click', function, true);  // capturing
+element.addEventListener('click', function, false); // bubbling
+
+
+When an event occurs on a DOM element, it passes through three phases:
+
+Capturing Phase (Capture)
+
+Event starts from the document root and moves down the DOM tree to the target element.
+
+Rarely used directly, but possible with addEventListener(event, handler, true).
+
+Target Phase
+
+Event reaches the target element.
+
+Both capture and bubble handlers can run here depending on registration.
+
+Bubbling Phase (Bubble)
+
+Event bubbles up from the target element back to the root (document).
+
+Most events bubble by default (like click, keydown).
+
+Not all events bubble (e.g., focus, blur do not bubble by default).
+
+
+event.stopPropagation()
+
+This stops the event from moving up (bubbling) or moving down (capturing).
+
+| Feature           | Capturing Phase                   | Bubbling Phase                    |
+| ----------------- | --------------------------------- | --------------------------------- |
+| Direction         | Top → Bottom                      | Bottom → Top                      |
+| Event listener    | `addEventListener(..., true)`     | `addEventListener(..., false)`    |
+| Default           | Rarely used                       | Default for most events           |
+| Stops propagation | `stopPropagation()` works in both | `stopPropagation()` works in both |
+
+
+Time intervals and timeouts
+---------------------------
+
+<script>
+let timeoutId = setTimeout(function() {
+  console.log("This will not run!");
+}, 5000);
+
+// Cancel before it runs
+clearTimeout(timeoutId);
+</script>
+
+<script>
+let count = 0;
+let timer = setInterval(function() {
+  count++;
+  console.log("Count:", count);
+  if (count === 5) {
+    clearInterval(timer); // stop after 5 times
+    console.log("Stopped!");
+  }
+}, 1000);
+</script>
+
+
+
+| Feature                           | Local Storage (5mb)                       | Session Storage  (5mb)                     | Cookies  (4kb)                                      |
+| --------------------------------- | ------------------------------------ | ------------------------------------- | ---------------------------------------------- |
+| **Scope**                         | Browser-wide (for the same origin)   | Current browser tab/session           | Sent with HTTP requests                        |
+| **Persistence**                   | Until deleted manually or by code    | Until tab or window is closed         | Until expiry date (can persist for years)      |
+| **Capacity**                      | ~5–10 MB                             | ~5 MB                                 | ~4 KB                                          |
+| **Accessible via JavaScript?**    | ✅ Yes                                | ✅ Yes                                 | ✅ Yes                                          |
+| **Sent to Server Automatically?** | ❌ No                                 | ❌ No                                  | ✅ Yes (in HTTP headers)                        |
+| **Best for**                      | Long-term data (themes, preferences) | Temporary data (forms, step progress) | Server-related info (authentication, tracking) |
+
+// Save data
+localStorage.setItem("username", "Alice");
+
+// Get data
+let user = localStorage.getItem("username");
+console.log(user); // "Alice"
+
+// Remove one item
+localStorage.removeItem("username");
+
+// Clear all
+localStorage.clear();
+
+
+// Save data
+sessionStorage.setItem("token", "abc123");
+
+// Retrieve
+console.log(sessionStorage.getItem("token")); // "abc123"
+
+// Clear
+sessionStorage.clear();
+
+// Set cookie
+document.cookie = "username=Alice; expires=Fri, 31 Dec 2025 23:59:59 GMT; path=/";
+
+// Read cookies
+console.log(document.cookie);
+
+// Delete cookie (set expiry to past)
+document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+
+
+
+
+
+

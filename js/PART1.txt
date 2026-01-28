@@ -1,0 +1,230 @@
+Var a=12;  //adds it in the window
+//function scoped, can be declared again
+Let a=12; //block-scoped,no redeclaration
+
+Temporal dead zone:- The Temporal Dead Zone (TDZ) is the period between:
+
+when a variable is declared, and
+
+when it is initialized (assigned a value)
+
+During this period, the variable exists (in memory) but cannot be accessed — doing so causes a ReferenceError.
+
+Hoisting
+--------
+Hoisting means that JavaScript moves declarations (not initializations) to the top of their scope — before code execution actually begins.
+With var, variables are hoisted and initialized with undefined, so you can access them before declaration.
+
+With let and const, variables are hoisted but not initialized until the declaration line runs — that’s the TDZ.
+
+` `-backticks
+Symbol
+-----
+let u1=Symbol("mid")
+let u2=Symbol("mid")
+U1!=u2
+Let obj={
+Uid:1
+};
+let a=Symbol("uid");
+obj[a]=112;
+//it will create Symbol("uid") rather than replacing
+
+Bigint
+======
+Let a=990899023890222n;
+a=a+2n;
+
+Type coercion->automatically converts the data type
+
+Dynamic typing means that the data type of a variable is determined at runtime, not in advance — and a variable’s type can change while the program is running.
+
+
+False values
+-----------
+0,null,undefined,"",NaN,document.all,false
+
+NaN stands for "Not-a-Number", and it represents a value that is not a valid number, typically the result of an invalid or undefined numeric operation.
+
+Rest Parameters
+---------------
+Used in function definitions to collect multiple arguments into an array.
+
+Syntax: ... before the parameter name.
+function sum(...numbers) {
+  console.log(numbers); // numbers is an array of all arguments
+  return numbers.reduce((acc, val) => acc + val, 0);
+}
+console.log(sum(1, 2, 3, 4)); // 10
+
+Rest parameters (...args) create a new array that holds copies of the passed arguments.
+The outer array is new,
+but any objects or arrays inside it are still references to the originals.
+
+Spread operator
+---------------
+Used in function calls, arrays, or objects to expand an array or object into individual elements.
+
+Syntax: ... before the array or object.
+const nums = [1, 2, 3];
+console.log(Math.max(...nums)); // 3
+
+The spread operator creates a shallow copy —
+top-level properties are copied by value,
+but nested ones remain by reference.
+//to tackle this we use JSON.stringfy()
+
+Pure Functions
+---------------
+A function is pure if:
+
+Its output depends only on its input arguments.
+
+It produces no side effects (doesn’t change anything outside the function).
+
+Impure Functions
+----------------
+A function is impure if it:
+
+Depends on external state.
+
+Or causes side effects (changes something outside the function).
+
+closures
+--------
+A closure is a function that returns another function which retains access to the variables of its outer (enclosing) function, even after the outer function has finished executing.
+function outer() {
+  let count = 0;
+  return function inner() {
+    count++;
+    console.log(count);
+  };
+}
+
+const counter = outer();//refernce of inner is passes and count is not garbaged.
+counter(); // 1
+counter(); // 2
+
+Lexical scoping (also called static scoping) means that the accessibility of variables is determined by the location of the variables and functions in the source code (their “lexical” position), not by the order in which functions are called(or where the function is called).
+
+In simple terms: a function can access variables defined in its outer scope, where it was written.
+
+Garbage collection
+------------------
+Is a automatic process of freeing up the memory by removing objects which are no longer reachable or needed by program.
+
+
+What is IIFE?
+
+IIFE stands for Immediately Invoked Function Expression.
+It is a function that is defined and executed immediately after it is created.
+
+Common Uses
+
+Avoid global namespace pollution
+
+Create private variables
+
+Initialization code that should run only once
+
+const result = (function() {
+  let privateVar = 42;
+  return privateVar * 2;
+})();
+
+console.log(result); // 84
+// console.log(privateVar); // ❌ ReferenceError, privateVar is not accessible
+
+
+
+Shadow and deep copy
+
+Arrays
+-----
+shift()
+Removes the first element from an array.
+Returns the removed element.
+Modifies the original array.
+
+unshift()
+Adds one or more elements to the beginning of an array.
+Returns the new length of the array.
+Modifies the original array.
+
+splice()
+------
+let arr = [10, 20, 30, 40, 50];
+let removed = arr.splice(1, 2); // remove 2 elements starting at index 1
+console.log(removed); // [20, 30]
+console.log(arr);     // [10, 40, 50]
+
+let arr = [10, 40, 50];
+arr.splice(1, 0, 20, 30); // at index 1, delete 0, add 20 and 30
+console.log(arr); // [10, 20, 30, 40, 50]
+
+let arr = [10, 20, 30, 40, 50];
+arr.splice(2, 2, 35, 45); // remove 2 elements at index 2, add 35, 45
+console.log(arr); // [10, 20, 35, 45, 50]
+
+slice()
+------
+let arr = [10, 20, 30, 40, 50];
+let newArr = arr.slice(1, 4); // index 1 to 3
+console.log(newArr); // [20, 30, 40]
+console.log(arr);    // [10, 20, 30, 40, 50] (original array unchanged)
+
+Map,filter,reduce,find,set.
+
+const numbers = [1, 2, 3, 4, 5];
+const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+console.log(sum); // 15
+
+const numbers = [1, 3, 5, 8];
+const hasEven = numbers.some(num => num % 2 === 0);
+console.log(hasEven); // true (8 is even)
+
+Destructuring ****
+let {city}=loaction.address
+let {"address-name"-addressname}=location .//converting invalid name to valid variable name(print address name variable)
+
+Objects
+-----------
+Obj?.address.?city can be undefined rather than error if it doesn't exist
+
+const target = { a: 1, b: 2 };
+const source = { b: 4, c: 5 };
+
+const result = Object.assign(target, source);
+
+console.log(result); // { a: 1, b: 4, c: 5 }
+console.log(target); // { a: 1, b: 4, c: 5 } → modified!
+
+const obj1 = { a: 1 };
+const obj2 = { b: 2 };
+const obj3 = { c: 3 };
+
+const merged = Object.assign({}, obj1, obj2, obj3);
+
+console.log(merged); // { a: 1, b: 2, c: 3 }
+
+To print all key-value pairs
+
+Object.entries(course).forEach(function(val){//extracts key value pair in array
+console.log(val[0]+ ":"+ val[1])});
+
+
+
+
+console.log(user.address?.city);
+If address exists → returns "Hyderabad"
+If address is missing → returns undefined (NO error)
+
+
+
+
+
+
+
+
+
+

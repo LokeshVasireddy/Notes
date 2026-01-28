@@ -1,0 +1,245 @@
+C++ NOTES
+
+MOD = 1e9 + 7
+hours += (pile + mid - 1) / mid;  // ceil(pile / mid)    *************
+sort(diff.rbegin(), diff.rend()); ///descending order
+
+
+Boolean point
+->3+true=4(for c++ and JS)
+->3+true=compile error(Java)
+->#include <cctype>(isalpha(),tolower(),isalnum())
+->#include <bits/stdc++.h>
+->’\0’ null pointer al last for every string.
+
+STRINGS FUNCTIONS
+->s.substr(3,2)  (2 characters from index 3)
+->s.find(“abc”)
+size_t pos = s.find("abc");
+if (pos != std::string::npos) {
+    char c = s[pos];        // SAFE
+    std::cout << c << '\n';
+}
+
+
+->s.erase(first index,last_index)
+->s.replace(first index,length of string,”string”)
+->s.insert(5, " World"); // Insert " World" at index 5
+->s.append(" World")
+->s1.compare(s2); // Negative value (because "apple" < "banana")
+This is a triangular number pattern — the total numbers used up to row i is i*(i+1)/2.
+
+Gap Method
+
+#include <utility> // For std::swap
+
+Manacher’s Algorithm
+5.longest substring
+
+| Function      | What it checks                        |
+| ------------- | ------------------------------------- |
+| `isdigit(ch)` | Is the character a digit `'0'-'9'`    |
+| `isalpha(ch)` | Is it a letter (A–Z or a–z)           |
+| `isalnum(ch)` | Is it alphanumeric (letter or digit)  |
+| `isspace(ch)` | Is it a whitespace (space, tab, etc.) |
+| Task                 | Function / Method                         |
+| -------------------- | ----------------------------------------- |
+| Check uppercase      | `isupper(c)`                              |
+| Check lowercase      | `islower(c)`                              |
+| Convert to uppercase | `toupper(c)`                              |
+| Convert to lowercase | `tolower(c)`                              |
+| Whole string         | Loop + `toupper`/`tolower` or `transform` |
+
+
+Convert char to int: '5' - '0' = 5
+Convert int to char: 5 + '0' = '5'
+
+
+Vector
+------
+vec.assign(n, vector<bool>(m, false));(very imp)
+
+
+#include <vector>
+#include <utility>
+using namespace std;
+
+pair<vector<int>, int> p = make_pair(vector<int>{1, 2, 3}, 5);
+auto [node, idx] = q.front();//for pair
+
+
+Character	ASCII	Notes
+'A'	65	Start of uppercase letters
+'Z'	90	End of uppercase letters
+'a'	97	Start of lowercase letters
+'z'	122	End of lowercase letters
+
+
+Character	ASCII	Notes
+'0'	48	Start of digits
+'9'	57	End of digits
+
+
+Feature	unordered_map	map
+Internal Structure	Hash table (uses hashing)	Balanced binary tree (Red-Black Tree)
+Order of keys	No ordering (random)	Keys are sorted (ascending by default)
+Search Time	Average O(1)	O(log n)
+Insertion Time	Average O(1)	O(log n)
+Header File	<unordered_map>	<map>
+Key Requirements	Needs a hash function	Needs comparison (<)
+Duplicates	No (like a set)	No
+
+*max_element(piles.begin(),piles.end());
+string s = to_string(num);
+int num = stoi(s);
+
+
+1.priority queue
+--------------
+
+| Function  | Meaning                             |
+| --------- | ----------------------------------- |
+| `push(x)` | Add element                         |
+| `pop()`   | Remove the highest priority element |
+| `top()`   | View highest priority element       |
+| `empty()` | Check if empty                      |
+
+int main() {
+    priority_queue<int> pq;
+
+    pq.push(10);
+    pq.push(30);
+    pq.push(20);
+
+    while (!pq.empty()) {
+        cout << pq.top() << " "; // prints: 30 20 10
+        pq.pop();
+    }
+}
+Min-heap:-
+priority_queue<int, vector<int>, greater<int>> pq;
+
+
+
+2.MAP
+-------
+map<string, int> mp;
+
+| Operation            | Code                       | Complexity |
+| -------------------- | -------------------------- | ---------- |
+| Insert               | `mp[key] = value;`         | O(log n)   |
+| Insert (alternative) | `mp.insert({key, value});` | O(log n)   |
+| Access value         | `mp[key]`                  | O(log n)   |
+| Erase key            | `mp.erase(key);`           | O(log n)   |
+| Check if exists      | `mp.count(key)`            | O(log n)   |
+| Size of map          | `mp.size()`                | O(1)       |
+| Clear                | `mp.clear()`               | O(n)       |
+
+
+
+int main() {
+    map<string, int> fruitCount;
+
+    fruitCount["apple"] = 10;
+    fruitCount["banana"] = 5;
+    fruitCount["orange"] = 8;
+
+    fruitCount["banana"] = 6; // update value
+
+    for (auto it : fruitCount) {
+        cout << it.first << " -> " << it.second << endl;
+    }
+
+}
+
+if(mp.find(key) != mp.end()) {
+    cout << "Key found\n";
+} else {
+    cout << "Key not found\n";
+}
+
+3.SET
+------
+| Operation    | Code           | Complexity |
+| ------------ | -------------- | ---------- |
+| Insert       | `s.insert(x);` | O(log n)   |
+| Remove       | `s.erase(x);`  | O(log n)   |
+| Search       | `s.find(x)`    | O(log n)   |
+| Check exists | `s.count(x)`   | O(log n)   |
+| Size         | `s.size()`     | O(1)       |
+| Clear        | `s.clear()`    | O(n)       |
+
+for(auto it = s.begin(); it != s.end(); it++){
+    cout << *it << " ";
+}
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string line;
+    getline(cin, line);          // read full input line
+
+    stringstream ss(line);       // load into stringstream
+    string word;
+auto it = lower_bound(tails.begin(), tails.end(), x);
+
+    while (ss >> word) {         // extract space-separated tokens
+        cout << word << "\n";
+    }
+}
+
+string line;
+getline(cin, line);
+
+stringstream ss(line);
+string token;
+
+while (getline(ss, token, ',')) {   // split by ','
+    cout << token << "\n";
+}
+
+
+int n;
+cin >> n;
+cin.ignore();        // ignore leftover newline
+string s;
+getline(cin, s);   
+
+
+
+int *p = nullptr;
+*p = 5;  // ❌ trying to write to address 0 → segfault
+int *p;   // not initialized → contains garbage address
+*p = 10;  // ❌ segfault (random invalid memory)
+int *p = new int(10); // safe
+
+
+
+Important
+---------
+result.append(3, 'a');//aaa
+custom comparators?	
+-----------
+ sort(arr.begin(), arr.end(), [](auto &a, auto &b) {
+            return a.second > b.second;
+      });
+
+sort(v.begin(), v.end(), [](auto &a, auto &b) {
+    if (a.second != b.second)
+        return a.second > b.second;   // primary key
+    return a.first < b.first;         // secondary key
+});
+
+
+vector<pair<string,int>> v(mp.begin(), mp.end());
+
+sort(v.begin(), v.end(),
+     [](auto &a, auto &b) {
+         return a.second < b.second;   // sort by value
+     });
+
+
+
+

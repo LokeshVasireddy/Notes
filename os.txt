@@ -1,0 +1,211 @@
+Operating System Services
+
+These are services provided by OS to the user/programs.
+
+✔ 1. Program Execution
+
+Loading, running, stopping programs.
+
+✔ 2. I/O Operations
+
+Abstracts hardware differences and provides I/O APIs.
+
+✔ 3. File System Manipulation
+
+Create/delete files & folders, modify attributes.
+
+✔ 4. Communication
+
+Inter-process communication:
+
+Shared memory
+
+Message passing
+
+✔ 5. Error Detection
+
+Detects CPU, memory, or I/O errors and handles them safely.
+
+✔ 6. Resource Allocation
+
+Distributes CPU, memory, files, I/O among processes.
+
+✔ 7. Accounting
+
+Tracks usage by users/processes for billing or stats.
+
+✔ 8. Protection
+
+Prevents one process from interfering with another.
+
+
+Linus commands
+--------------
+ls                → list files
+ls -l             → detailed list
+ls -a             → show hidden files
+pwd               → print working directory
+cd folder         → change directory
+cd ..             → go back
+mkdir folder      → create folder
+rm file           → delete file
+rm -r folder      → delete folder recursively
+cp src dst        → copy file
+mv src dst        → move/rename
+touch file        → create empty file
+cat file          → view file
+head file         → view first lines
+tail file         → view last lines
+
+File permission
+
+chmod 755 file     → change permissions
+chown user file    → change owner
+chgrp group file   → change group
+
+r = read
+w = write
+x = execute
+
+
+ps                 → list processes
+ps -aux            → detailed processes
+top                → live process view
+htop               → advanced process monitor
+kill pid           → kill a process
+kill -9 pid        → force kill
+
+
+ifconfig           → network info
+ping google.com    → test connectivity
+netstat -tulnp     → list open ports
+ssh user@host      → connect to remote server
+scp file user@host → secure copy
+
+
+LIFECYCLE
+---------
+1. Process Lifecycle
+A process goes through these states:
+New – process is being created
+Ready – waiting for CPU
+Running – currently executing
+Waiting / Blocked – waiting for I/O or event
+Terminated – execution finished
+
+
+4. Context Switching
+Context switch = OS saves current process state (in PCB) and loads another process’s state.
+
+6. Scheduling Criteria
+
+CPU Utilization → keep CPU busy
+Throughput → # of processes completed per time
+Turnaround Time → completion time – arrival time
+Waiting Time → time spent in ready queue(Turnaround Time−Burst Time)
+Response Time → first response time(First Start Time−Arrival Time)
+Fairness → equal CPU time for all
+
+
+fork()    → creates a child process; parent gets PID, child gets 0  
+vfork()   → like fork but faster; child shares parent memory temporarily  
+exec()    → replaces current program with a new one (never returns if successful)  
+wait()    → parent waits for any child to finish  
+waitpid() → parent waits for a specific child or uses WNOHANG option  
+Orphan    → parent exits while child still running; child adopted by init  
+Zombie    → child exits but parent has not called wait; entry in process table 
+
+
+
+4. Semaphores
+A semaphore is a synchronization tool used to control access to shared resources. 
+
+1. Counting Semaphore
+Value can be 0 or more
+Used when multiple resources exist
+Example: 5 printers → initialized as S = 5
+2. Binary Semaphor
+Only 0 or 1
+Works like a lock/mutex
+Used for mutual exclusion
+3. Mutex (Mutual Exclusion Lock)
+Similar to binary semaphore
+But owned by a thread (thread must unlock itself)
+Binary Semaphore vs Mutex:
+Semaphore has no owner → any thread can signal
+Mutex has owner → only owner can unlock
+
+Classical Synchronization Problems
+1. Producer–Consumer Problem (Bounded Buffer)
+Producer generates items
+Consumer consumes items
+Shared buffer has limited size
+
+2. Reader–Writer Problem
+
+Readers can read simultaneously,
+but writer needs exclusive access.
+Two versions:
+First Readers-Writers Problem → readers get priority
+Second RW Problem → writers get priority
+Uses:
+mutex for updating read count
+rw_mutex for controlling access to shared data
+
+2. Types of IPC Mechanisms
+
+We focus on the 3 you asked:
+Pipes
+Message Queues
+Shared Memory
+
+Memory management
+1. Paging
+
+Paging divides memory into fixed-size blocks:
+Physical memory → frames
+Logical memory → pages
+
+Paging: fixed-size pages, avoids external fragmentation, may cause internal fragmentation.
+
+Segmentation: variable-sized segments, causes external fragmentation.
+
+Virtual Memory: program executes even if not fully in RAM.
+
+Demand Paging: load pages only when needed; page fault occurs if page is absent.
+
+Page Replacement:
+ - FIFO: simple, may show Belady’s anomaly.
+ - LRU: replaces least recently used page.
+ - Optimal: theoretical best, not practical.
+
+Compaction: shift memory contents to remove external fragmentation.
+
+Fragmentation:
+ - Internal: unused space inside allocated blocks.
+ - External: free blocks scattered.
+
+Thrashing: excessive page faults due to insufficient frames; CPU utilization drops.
+
+
+Contiguous Allocation: fast access, causes external fragmentation.
+Linked Allocation: easy growth, slow random access.
+Indexed Allocation: index block stores addresses, fast access.
+
+lseek   → change file offset  
+link    → create hard link (same inode)  
+symlink → create soft link (path-based)  
+unlink  → delete file name  
+stat    → metadata (follows symlink)  
+lstat   → metadata (does NOT follow symlink)  
+fstat   → metadata via file descriptor  
+
+opendir   → open directory  
+readdir   → read entries  
+closedir  → close directory  
+mkdir     → create directory  
+rmdir     → remove directory (empty)  
+umask     → set permission mask for new files
+
+
+

@@ -1,0 +1,16 @@
+813.You are given an integer array nums and an integer k. You can partition the array into at most k non-empty adjacent subarrays. The score of a partition is the sum of the averages of each subarray.
+
+Note that the partition must use every integer in nums, and that the score is not necessarily an integer.
+
+Return the maximum score you can achieve of all the possible partitions. Answers within 10-6 of the actual answer will be accepted.
+
+Problem statement
+A Derangement is a permutation of ‘N’ elements, such that no element appears in its original position. For example, an instance of derangement of {0, 1, 2, 3} is {2, 3, 1, 0}, because 2 present at index 0 is not at its initial position which is 2 and similarly for other elements of the sequence.
+
+Given a number ‘N’, find the total number of derangements possible of a set of 'N’ elements.
+
+Note:
+The answer could be very large, output answer %(10 ^ 9 + 7).
+
+221. Maximal Square
+139.word break

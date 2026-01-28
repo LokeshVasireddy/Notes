@@ -1,0 +1,106 @@
+std::string bin1 = "1011";
+int num1 = std::stoi(bin1, nullptr, 2);
+
+std::stoi(...) → Stands for "string to integer"
+
+bin1 → The binary number as a std::string (e.g. "1011")
+
+nullptr → We’re not interested in the position where parsing stops, so we pass nullptr
+
+2 → This tells stoi to treat the input as base-2 (binary)
+
+"1011" is binary
+
+In decimal, 1011₂ = 8 + 0 + 2 + 1 = 11
+
+So, num1 becomes 11
+
+
+Manacher’s Algorithm (Java, O(n) Time)
+--------------------------------------
+public class LongestPalindromicSubstringManacher {
+
+    public String longestPalindrome(String s) {
+        if (s == null || s.length() == 0) return "";
+
+        // Step 1: Transform the string to avoid even/odd length issues
+        // Example: "abba" -> "^#a#b#b#a#$"
+        StringBuilder sb = new StringBuilder();
+        sb.append('^'); // Starting boundary
+        for (char c : s.toCharArray()) {
+            sb.append('#').append(c);
+        }
+        sb.append("#$"); // Ending boundary
+        char[] chars = sb.toString().toCharArray();
+
+        int[] p = new int[chars.length];  // Array to hold palindrome radii
+        int center = 0, right = 0;
+
+        // Step 2: Expand around each center using previously known information
+        for (int i = 1; i < chars.length - 1; i++) {
+            int mirror = 2 * center - i; // Mirror index of i around center
+
+            if (i < right)
+                p[i] = Math.min(right - i, p[mirror]);
+
+            // Try to expand palindrome centered at i
+            while (chars[i + (1 + p[i])] == chars[i - (1 + p[i])]) {
+                p[i]++;
+            }
+
+            // If palindrome centered at i expands past right,
+            // adjust the center and right boundary
+            if (i + p[i] > right) {
+                center = i;
+                right = i + p[i];
+            }
+        }
+
+        // Step 3: Find the longest palindrome in p[]
+        int maxLen = 0;
+        int centerIndex = 0;
+        for (int i = 1; i < p.length - 1; i++) {
+            if (p[i] > maxLen) {
+                maxLen = p[i];
+                centerIndex = i;
+            }
+        }
+
+        // Step 4: Extract the original palindrome
+        int start = (centerIndex - maxLen) / 2; // Map back to original string
+        return s.substring(start, start + maxLen);
+    }
+
+    // Example usage
+    public static void main(String[] args) {
+        LongestPalindromicSubstringManacher sol = new LongestPalindromicSubstringManacher();
+
+        System.out.println(sol.longestPalindrome("babad")); // Output: "bab" or "aba"
+        System.out.println(sol.longestPalindrome("cbbd"));  // Output: "bb"
+        System.out.println(sol.longestPalindrome("a"));     // Output: "a"
+        System.out.println(sol.longestPalindrome("ac"));    // Output: "a" or "c"
+        System.out.println(sol.longestPalindrome("racecar")); // Output: "racecar"
+    }
+}
+
+
+
+
+Number to roman
+---------------
+class Solution {
+    public String intToRoman(int num) {
+        int[] vals =    {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] syms = {"M",  "CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < vals.length; i++) {
+            while (num >= vals[i]) {
+                num -= vals[i];
+                sb.append(syms[i]);
+            }
+        }
+        return sb.toString();
+    }
+}
+

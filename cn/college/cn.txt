@@ -1,0 +1,2 @@
+1) Physical Layer
+Its job is to move raw bits (0s and 1s) over a physical medium between devices. It defines the electrical, optical, mechanical and functional interfaces — how the signal is actually transmitted and received.

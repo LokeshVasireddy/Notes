@@ -1,0 +1,45 @@
+✅ Boyer-Moore Voting Algorithm — O(n) Time, O(1) Space
+-------------------------------------------------------
+👇 Idea:
+Keep a candidate and a count.
+
+Iterate through the array:
+
+If count == 0, set the current element as the new candidate.
+
+If the current element is the same as the candidate, increment count.
+
+Else, decrement count.
+
+By the end, the candidate is guaranteed to be the majority element (since the problem guarantees one exists).
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int majorityElement(vector<int>& nums) {
+    int count = 0;
+    int candidate = 0;
+
+    for (int num : nums) {
+        if (count == 0) {
+            candidate = num;
+        }
+        count += (num == candidate) ? 1 : -1;
+    }
+
+    return candidate;
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> nums(n);
+    for (int i = 0; i < n; ++i)
+        cin >> nums[i];
+
+    cout << majorityElement(nums) << endl;
+
+    return 0;
+}

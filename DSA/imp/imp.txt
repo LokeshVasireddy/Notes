@@ -1,0 +1,36 @@
+In C++, .length() (or .size()) for std::string returns a size_t (an unsigned integer type).
+
+minLen in your code is declared as int.
+
+ 
+
+vector<int> count(256, 0);  // frequency of each character
+    vector<bool> inStack(256, false); // track if char is already in stack
+    
+    for (char c : s) count[c]++;
+
+
+Bit masking
+------------
+| Operator | Name        | What it does (per bit)           |                            |
+| -------- | ----------- | -------------------------------- | -------------------------- |
+| `&`      | AND         | 1 only if both bits are 1        |                            |
+| \`       | \`          | OR                               | 1 if at least one bit is 1 |
+| `^`      | XOR         | 1 if bits are different          |                            |
+| `~`      | NOT         | flips all bits                   |                            |
+| `<<`     | Left shift  | moves bits left, filling with 0  |                            |
+| `>>`     | Right shift | moves bits right, filling with 0 |                            |
+
+Set a bit (turn bit pos to 1)
+mask |= (1 << pos);
+
+Clear a bit (turn bit pos to 0)
+mask &= ~(1 << pos);
+
+Toggle a bit (flip bit pos)
+mask ^= (1 << pos);
+
+Check if bit is set (is bit pos == 1?)
+if (mask & (1 << pos)) { /* yes */ }
+
+

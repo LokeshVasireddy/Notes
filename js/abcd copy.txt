@@ -1,0 +1,15 @@
+Why Asynchronous Programming?
+JavaScript is single-threaded, which means only one task runs at a time.
+
+So if you do something slow (like fetch data or wait for a file), JavaScript can’t stop and wait — otherwise your entire app would freeze.
+
+✅ Solution:
+Use asynchronous patterns like:
+
+Callbacks
+
+Promises
+
+async/await
+
+Event loop

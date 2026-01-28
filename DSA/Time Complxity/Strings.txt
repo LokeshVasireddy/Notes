@@ -1,0 +1,12 @@
+| Problem Example                      | Time Complexity | Why?                          |
+| ------------------------------------ | --------------- | ----------------------------- |
+| Brute-force TSP                      | O(n!)           | All city permutations         |
+| Generating all permutations          | O(n!)           | Total number of permutations  |
+| Brute-force job scheduling/orderings | O(n!)           | Exploring all possible orders |
+
+
+| Task                                   | Time Complexity | Reason                 |
+| -------------------------------------- | --------------- | ---------------------- |
+| Generate all combinations (k out of n) | O(C(n, k))      | Number of combinations |
+| Generate all subsets (powerset)        | O(2^n)          | 2 choices per element  |
+| Generate all permutations (n items)    | O(n!)           | n! possible orderings  |

@@ -1,0 +1,256 @@
+Batch size = how many training examples the model processes before updating its weights.
+
+Instead of learning from one example at a time, the model learns from a batch.
+
+
+
+
+
+Supervised
+----------
+Supervised Learning is a type of Machine Learning where:
+
+You train a model using labeled data
+
+Each data point has:
+
+Input (X) → features
+
+Output (Y) → correct answer (label)
+
+
+Classification
+--------------
+Logistic Regression
+
+KNN
+
+Naive Bayes
+
+SVM
+
+Decision Tree
+
+Random Forest
+
+Neural Networks
+
+Regression
+---------
+Linear Regression
+
+Polynomial Regression
+
+Ridge / Lasso
+
+SVR
+
+Neural Networks
+
+
+| Problem               | Loss Function             |
+| --------------------- | ------------------------- |
+| Regression            | MSE, MAE                  |
+| Binary Classification | Binary Cross Entropy      |
+| Multi-class           | Categorical Cross Entropy |
+
+| Metric    | Meaning                       |
+| --------- | ----------------------------- |
+| Accuracy  | Overall correctness           |
+| Precision | Correct positives             |
+| Recall    | Found positives               |
+| F1-score  | Balance of precision & recall |
+| ROC-AUC   | Threshold independent         |
+
+
+
+K-Nearest Neighbors (KNN)
+------------------
+KNN is a supervised, non-parametric, lazy learning algorithm used for classification and regression.
+1️⃣Choose the number K
+2️⃣ Calculate distance from new point to all training points
+3️⃣ Select K nearest neighbors
+4️⃣ Classification → majority vote
+5️⃣ Regression → average of values
+
+Recommendation Systems (Movies / Products)
+
+Scenario:
+You watch action & sci-fi movies.
+How KNN works:
+Find users with similar viewing history
+Recommend what they liked
+👉 “Users similar to you liked this.”
+
+Naive Bayes
+----------
+Naive Bayes is a supervised, probabilistic classification algorithm based on Bayes’ Theorem, with the 
+“naive” assumption that features are independent.
+P(C∣X)=P(X∣C)P(C)/P(X)
+
+Decision Tree
+-------------
+A Decision Tree is a supervised learning algorithm that makes decisions by asking a series of questions and 
+splitting data like a tree structure.
+Loan Approval System 💳
+
+Questions (nodes):
+
+Is income > 50,000?
+
+Credit score > 700?
+
+Existing loans?
+
+Decision (leaf):
+
+Approve / Reject loan
+
+👉 Exactly how banks think.
+
+Random Forest
+------------
+Random Forest is an ensemble learning algorithm that builds multiple decision trees and combines their 
+results to make a more accurate and stable prediction.
+Instead of trusting one tree, it trusts the wisdom of many trees.
+
+example:Stock Market Trend Prediction
+
+Support Vector Machine (SVM)
+----------------------------
+SVM is a supervised learning algorithm that finds the optimal hyperplane which separates 
+data points of different classes with the maximum margin.
+Face Recognition 👤
+
+High-dimensional pixel data
+
+SVM separates facial features effectively
+
+
+
+Unsupervised
+------------
+Unsupervised Learning is a type of machine learning where the model is trained on unlabeled data and tries to discover hidden patterns, structures, or 
+relationships in the data without knowing the correct output in advance.
+
+1. K-Means Clustering
+---------------------
+K-Means is an unsupervised learning algorithm that groups data into K clusters based on similarity.
+1️⃣ Choose number of clusters K
+2️⃣ Randomly initialize K centroids
+3️⃣ Assign each data point to the nearest centroid
+4️⃣ Recalculate centroids (mean of cluster points)
+5️⃣ Repeat steps 3–4 until centroids stop changing
+
+1️⃣ Customer Segmentation 🛒
+
+Group customers by buying behavior
+
+Used in marketing campaigns
+
+2️⃣ Image Compression 🖼️
+
+Group similar pixel colors
+
+Reduce number of colors
+
+3️⃣ Document Clustering 📄
+
+Group similar news articles
+
+Topic discovery
+
+
+Hierarchical Clustering
+-----------------------
+Hierarchical Clustering is an unsupervised learning algorithm that builds a hierarchy (tree) of 
+clusters instead of forming a single flat partition.
+
+Start with data points and keep merging or splitting clusters step by step, creating a hierarchy.
+
+
+1️⃣ Start with N clusters (each point = one cluster)
+2️⃣ Compute distance between all clusters
+3️⃣ Merge the two closest clusters
+4️⃣ Recalculate distances
+5️⃣ Repeat until one cluster remains
+
+1️⃣ Document Clustering 📄
+
+Group research papers by topic
+
+Subtopics naturally form
+
+2️⃣ Biological Classification 🧬
+
+Species → genus → family → kingdom
+
+Natural hierarchy
+
+3️⃣ Customer Segmentation 🛒
+
+High-level groups → sub-groups
+
+Useful for marketing strategies
+
+
+Principal Component Analysis (PCA)
+--------------------------------
+PCA is an unsupervised dimensionality reduction technique that transforms high-dimensional 
+data into a lower-dimensional space while preserving maximum variance.
+
+1️⃣ Standardize the data
+2️⃣ Compute covariance matrix
+3️⃣ Calculate eigenvalues & eigenvectors
+4️⃣ Choose top K eigenvectors
+5️⃣ Project data onto new axes
+
+1️⃣ Image Compression 🖼️
+
+Reduce pixel dimensions
+
+Keep important visual features
+
+2️⃣ Face Recognition 👤
+
+Reduce facial feature space
+
+Faster matching
+
+3️⃣ Data Visualization 📊
+
+Convert high-dimensional data into 2D/3D plots
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	​
+

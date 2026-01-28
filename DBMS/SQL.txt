@@ -1,0 +1,63 @@
+https://x.com/dkare1009/status/2015293786688246049?s=20
+
+
+A VIEW in SQL is a virtual table that is created from the result of a query.
+It behaves like a table, but it does not store data (usually).
+Instead, it stores the query, and each time you use the view, SQL runs that query.
+
+CREATE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+
+
+
+Keys are special fields (columns) used to:
+
+Uniquely identify rows
+
+Link tables together
+
+Maintain data integrity
+
+Speed up searches
+
+| Feature    | SQL                             | MySQL                     |
+| ---------- | ------------------------------- | ------------------------- |
+| Type       | Language                        | Database software         |
+| Purpose    | Query & manage data             | Store & manage data       |
+| Created by | ANSI / ISO                      | Oracle                    |
+| Usage      | Same syntax everywhere (mostly) | Has its own SQL dialect   |
+| Example    | `SELECT`, `JOIN`, `GROUP BY`    | `LIMIT`, `AUTO_INCREMENT` |
+
+
+
+
+sql query for the 3rd highest salary of an emp
+SELECT DISTINCT salary
+FROM Employee
+ORDER BY salary DESC
+LIMIT 1 OFFSET 2;
+ Or 
+
+SELECT MAX(salary) AS ThirdHighestSalary
+FROM Employee
+WHERE salary < (
+    SELECT MAX(salary)
+    FROM Employee
+    WHERE salary < (
+        SELECT MAX(salary)
+        FROM Employee
+    )
+);
+
+
+
+
+find emp hired in the last 6 months
+SELECT *
+FROM Employee
+WHERE hire_date >= DATEADD(MONTH, -6, GETDATE());
+SELECT *
+FROM Employee
+WHERE hire_date >= CURRENT_DATE - INTERVAL '6' MONTH;

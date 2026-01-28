@@ -1,0 +1,61 @@
+Agile
+-----
+What is Agile? (Definition)
+Agile is a flexible, iterative, and incremental software development methodology that focuses on:
+Fast delivery
+Customer collaboration
+Continuous improvement
+Responding to change quickly
+
+
+Agile is an iterative, incremental methodology emphasizing customer collaboration, adaptability, and frequent delivery of working software. Agile values interactions, working software, collaboration, and responsiveness to change.
+
+Scrum and Kanban are common Agile frameworks. Agile uses user stories, sprints, continuous testing, and review meetings. It improves speed, flexibility, and quality but requires experienced teams and active customer involvement.
+
+| Agile                           | Waterfall                           |
+| ------------------------------- | ----------------------------------- |
+| Iterative & incremental         | Sequential                          |
+| Flexible; welcomes change       | Rigid; changes expensive            |
+| Continuous customer involvement | Customer involved only at start/end |
+| Working software early          | Working product only at the end     |
+| Testing occurs every sprint     | Testing after development           |
+
+
+
+| Command  | Use For               | Effect                            |
+| -------- | --------------------- | --------------------------------- |
+| `reset`  | Undo commits locally  | Moves branch pointer              |
+| `revert` | Undo commits publicly | Adds new commit reversing changes |
+
+| Command         | History | Staging | Files               |
+| --------------- | ------- | ------- | ------------------- |
+| `reset --soft`  | ✔ Yes   | ✔ Yes   | ❌ No                |
+| `reset --mixed` | ✔ Yes   | ✔ Yes   | ❌ No                |
+| `reset --hard`  | ✔ Yes   | ✔ Yes   | ✔ YES (destructive) |
+
+| Feature                            | `git restore`        | `git reset`                 | `git revert`           |
+| ---------------------------------- | -------------------- | --------------------------- | ---------------------- |
+| Changes working directory (files)? | ✔ Yes                | ✔ Yes (`--hard`)            | ✔ Yes (via new commit) |
+| Changes staging area?              | ✔ Yes (`--staged`)   | ✔ Yes                       | ❌ No                   |
+| Changes commit history?            | ❌ No                 | ✔ Yes (rewrites)            | ❌ No (adds new commit) |
+| Safe on shared branches?           | ✔ Yes                | ❌ No                        | ✔ Yes                  |
+| Purpose                            | Discard file changes | Move HEAD & rewrite history | Undo commit safely     |
+| Destructive                        | Medium               | HIGH (`--hard`)             | Low                    |
+| Creates new commit                 | ❌ No                 | ❌ No                        | ✔ Yes                  |
+
+
+Docker
+------
+docker images              → list images
+docker pull imageName      → download image
+docker build -t name .     → build image from Dockerfile
+docker rmi imageName       → remove image
+
+docker run imageName       → run container
+docker run -d -p 8080:80   → run in background with port mapping
+docker ps                  → list running containers
+docker stop containerId    → stop container
+docker rm containerId      → remove container
+
+7. Docker Volumes (Persistent Storage)
+Containers are temporary → data is lost when container stops.

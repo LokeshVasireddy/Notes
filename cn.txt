@@ -1,0 +1,19 @@
+25. HTTP port: A) 80 | Answer: A26. HTTPS port: A) 443 | Answer: A27. FTP ports: A) 20/21 | Answer: A28. SSH port: A) 22 | Answer: A
+
+| Class       | Private IP Range              |
+| ----------- | ----------------------------- |
+| **Class A** | 10.0.0.0 – 10.255.255.255     |
+| **Class B** | 172.16.0.0 – 172.31.255.255   |
+| **Class C** | 192.168.0.0 – 192.168.255.255 |
+
+
+| Purpose                | Range          |
+| ---------------------- | -------------- |
+| **Loopback**           | 127.0.0.0/8    |
+| **Link-local (APIPA)** | 169.254.0.0/16 |
+| **Multicast**          | 224.0.0.0/4    |
+| **Reserved**           | 240.0.0.0/4    |
+
+
+
+STP (Spanning Tree Protocol) is a Layer 2 protocol used in Ethernet networks to prevent loops when multiple switches are interconnected.

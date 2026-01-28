@@ -1,0 +1,129 @@
+| Algorithm                    | Description                                                                 |
+| ---------------------------- | --------------------------------------------------------------------------- |
+| 🔹 **Linear Regression**     | Fits a straight line (`y = mx + c`) through data to predict values.         |
+| 🔹 **Polynomial Regression** | Fits curves (e.g., quadratic or cubic) to handle nonlinear relationships.   |
+| 🔹 **Ridge Regression**      | Linear regression + **L2 regularization** (penalizes large weights).        |
+| 🔹 **Lasso Regression**      | Linear regression + **L1 regularization** (can eliminate useless features). |
+
+
+| Metric                           | Meaning                                                             |
+| -------------------------------- | ------------------------------------------------------------------- |
+| 🔸 **MSE (Mean Squared Error)**  | Average of squared differences between actual and predicted values. |
+| 🔸 **RMSE (Root MSE)**           | Square root of MSE (brings units back to original scale).           |
+| 🔸 **MAE (Mean Absolute Error)** | Average of absolute differences (less sensitive to outliers).       |
+| 🔸 **R² (R-squared Score)**      | % of variance in target explained by model (1 = perfect, 0 = bad).  |
+
+df = pd.get_dummies(df, columns = ["sex", "smoker", "region"], drop_first=True)
+Without random_state, the split will be different every time you run the code.
+With random_state=42, you get the same split every time.
+
+Error Metrics
+------------
+What is RMSE?
+RMSE is the square root of the Mean Squared Error (MSE).
+It gives the average error in the same unit as the output (like rupees, marks, temperature, etc.)( Like MSE, but you want error in original units (e.g., dollars, hours).
+
+R² (R-squared or Coefficient of Determination))
+“How well does your model explain the data?”
+What is R²?
+R² measures how much variation in the output is explained by the model.
+Value is between 0 and 1 (sometimes even negative).
+What it does: Measures how much variance in the target is explained by the model.
+1.0 means perfect predictions (100% variance explained)
+0.0 means the model does no better than just predicting the average
+Negative means the model is worse than the average
+
+
+Gradients
+---------
+A gradient tells us how much and in what direction to change each weight and bias to make the model better.
+A positive gradient means the loss increases if you go in that direction.
+A negative gradient means the loss decreases, and you should go that way.
+
+What is Learning Rate?
+-----------------------
+The learning rate is a number that tells the model how big or small a step it should take while updating weights and bias
+
+Gradient Descent
+------------------
+Gradient Descent is an optimization algorithm used to minimize a loss function by updating model parameters (like weights in neural networks).
+w = w - learning_rate * ∂L/∂w
+∂L/∂w is the gradient of the loss function L with respect to weight w.
+learning_rate controls how big the step is.
+| Type              | Description                           | Example Use                  |
+| ----------------- | ------------------------------------- | ---------------------------- |
+| **Batch GD**      | Uses the entire dataset per step      | Stable but slow              |
+| **Stochastic GD** | Uses 1 sample per step                | Fast, but noisy              |
+| **Mini-batch GD** | Uses small batches (e.g., 32 samples) | Most common in deep learning |
+
+
+| Method              | What it Does                      | Returns?          |
+| ------------------- | --------------------------------- | ----------------- |
+| `.fit(X)`           | Learns from `X` (e.g., mean, std) | ❌ Nothing useful  |
+| `.transform(X)`     | Applies learned transformation    | ✅ Transformed `X` |
+| `.fit_transform(X)` | Learns and transforms in one step | ✅ Transformed `X` |
+
+What is Regularization?
+Regularization is a technique used to penalize complex models so they generalize better to new, unseen data.
+
+
+Standardiztion vs Normalization
+--------------------------------
+
+Linear Regression / Logistic Regression: Centered features reduce multicollinearity and make the intercept term easier to interpret.
+
+Principal Component Analysis (PCA): It finds directions of maximum variance from the origin. If data isn't centered, PCA gives misleading results.
+
+SVMs and Neural Networks: Centered data helps the optimization algorithm find better minima faster.
+
+ Helps with Convergence
+In optimization algorithms (e.g., gradient descent), if data is centered and scaled:
+
+The loss surface becomes smoother
+
+Convergence is faster and more stable
+
+🔷 Normalization (Min-Max scaling)
+​
+Scales all values to a [0, 1] range (or other custom ranges).
+
+Use normalization when:
+
+✅ You need values within a bounded range, e.g., [0, 1].
+✅ You’re using models that rely on distances between data points:
+
+K-Nearest Neighbors (KNN)
+
+K-Means clustering
+
+Neural networks (especially with ReLU or sigmoid activations)
+✅ Your data doesn’t follow a normal distribution, but you want to scale uniformly.
+
+
+
+⚠️ 2. Vanishing Gradient Problem
+🔹 What it is:
+A vanishing gradient occurs when the gradients (especially in deep networks) become very small, so the weights stop updating, and the model fails to learn.
+
+🔹 Why it happens:
+Happens most often with sigmoid or tanh activation functions.
+
+In deep networks, gradients are multiplied layer-by-layer during backpropagation.
+
+If each gradient is < 1, they shrink exponentially, especially in early layers.
+
+🔹 Visual clue:
+If you see loss not decreasing during training — especially in deep networks — this might be why.
+
+Exploding Gradient
+The opposite problem — gradients become too large, causing unstable training.
+
+Can cause NaNs or wildly fluctuating loss.
+
+
+
+
+
+
+
+

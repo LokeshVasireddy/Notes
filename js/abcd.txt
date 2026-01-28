@@ -1,0 +1,113 @@
+TDZ (Temporal Dead Zone): The time between entering the block and variable initialization, where using let or const gives an error.
+
+Autoboxing is a concept where a primitive type (like number, string, or boolean) in JavaScript is automatically wrapped in its corresponding object wrapper (like Number, String, or Boolean) when you try to access properties or methods on it.
+
+What is hoisting in JavaScript?
+Hoisting is JavaScript’s behavior of moving declarations (not initializations) to the top of their scope (either global or function scope) 
+during the compilation phase—before the code runs.
+
+
+
+
+
+DOM represents the structure of your webpage as a tree of objects.
+It models HTML elements as JavaScript objects and allows access and manipulation.
+
+
+Two built-in objects:-
+1.JSON(Javascript Object Notation)
+2.Local storage
+	localStorage.setItem(name,value)
+			      .getItem(name)
+
+
+Local Storage is a built-in feature in JavaScript (part of the Web Storage API) 
+that allows you to store key-value data in a user's browser — permanently, even after the browser is closed and reopened.(only accept strings)
+
+JSON.stringfy(name)
+JSON.parse(Json string)
+
+
+
+Autoboxing is a concept where a primitive type (like number, string, or boolean) in JavaScript is automatically wrapped in its corresponding object wrapper (like Number, String, or Boolean) when you try to access properties or methods on it.
+
+What is the DOM?
+When a browser loads a webpage, it converts the HTML into a tree-like structure of objects called the DOM.
+Each HTML element (like <div>, <p>, or <h1>) becomes a node in the DOM tree
+
+you can use an index to access elements from the NodeList returned by document.querySelectorAll.
+
+
+
+
+
+Local Storage is a built-in feature in JavaScript (part of the Web Storage API) 
+that allows you to store key-value data in a user's browser — permanently, even after the browser is closed and reopened.(only accept strings)
+
+String(25)
+console.log('25' - 5);   //20
+console.log('25' + 5);   //'255'
+
+
+
+DOM
+---------------
+DOM (Document Object Model) is a tree-like structure representing HTML elements in a webpage. JavaScript can use the DOM to read, update, create, or delete elements dynamically.
+
+img.setAttribute("src", "pic.jpg");
+link.getAttribute("href");  // returns URL
+
+Capture Phase (top → down)
+
+Target Phase (on the clicked element)
+
+Bubble Phase (bottom → up)
+
+element.addEventListener("click", handler, true); // capture phase
+
+
+| Method                       | Stops Bubbling | Stops Other Handlers on Same Element |
+| ---------------------------- | -------------- | ------------------------------------ |
+| `stopPropagation()`          | ✅ Yes          | ❌ No                                 |
+| `stopImmediatePropagation()` | ✅ Yes          | ✅ Yes                                |
+
+
+BOM
+----------------
+BOM provides interaction with the browser window using objects like window, location, navigator,
+screen, etc.
+window.location.href returns the full URL of the current page (e.g., https://example.com/page?query=123).
+
+JSON
+-----------------
+| Format   | Stands For                 | Used For                                                                       |
+| -------- | -------------------------- | ------------------------------------------------------------------------------ |
+| **XML**  | eXtensible Markup Language | Describing structured data in a document-like format                           |
+| **JSON** | JavaScript Object Notation | Representing structured data as key-value pairs, similar to JavaScript objects |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Arrays and Loops
+----------------
+
+Console.log(type of [1,2]) //object
+Console.log(Array.isArray([1,2]); //true
+.splice() == .erase()
+shift() ==== removes first element
+unshift(). ===== adds at the front
+
+
+
+

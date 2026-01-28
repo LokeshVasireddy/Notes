@@ -1,0 +1,65 @@
+
+
+
+LEETCODE 212
+
+
+
+class Solution {
+public:
+    int mySqrt(int x) {
+        if (x == 0 || x == 1) {
+            return x; // Edge cases
+        }
+        int l = 1, r = x, ans = 0;
+        while (l <= r) {
+            long long mid = l + (r - l) / 2;
+            if (mid * mid == x) {
+                return mid;
+            } else if (mid * mid < x) {
+                ans = mid; // Store the possible answer
+                l = mid + 1;
+            } else {
+                r = mid - 1;
+            }
+        }
+        return ans; // Return the largest integer whose square ≤ x
+    }
+};
+
+
+Given an integer array nums and an integer k, split nums into k non-empty subarrays such that the largest sum of any subarray is minimized.
+
+Return the minimized largest sum of the split.
+
+A subarray is a contiguous part of the array.
+
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int left = 1;
+        int right = *max_element(piles.begin(), piles.end());
+        int ans = right;
+
+        while(left <= right) {
+            int mid = left + (right - left) / 2;
+            if(safe(piles, h, mid)) {
+                ans = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return ans;
+    }
+
+    bool safe(vector<int>& piles, int h, int mid) {
+        long long hours = 0;
+        for(int pile : piles) {
+            hours += (pile + mid - 1) / mid;  // ceil(pile / mid)
+            if(hours > h) return false;
+        }
+        return true;
+    }
+};

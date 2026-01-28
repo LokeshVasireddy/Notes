@@ -1,0 +1,26 @@
+const filteredProducts = products.filter(product => product.brand === filterValue);
+✅ What this does:
+products: an array of product objects.
+
+.filter(...): creates a new array that includes only the products for which the callback returns true.
+
+product => product.brand === filterValue: the callback function — it returns true if the product’s brand matches the value of filterValue.
+---------------------------------------------------------------------------------------------------
+
+const mathsMarks = parseFloat(document.getElementById('maths').value);
+document.getElementById('average').textContent = averageMarks.toFixed(2);
+
+
+<script>
+  const button = document.getElementById('toggleBtn');
+  const media = document.getElementById('media');
+
+  button.addEventListener('click', () => {
+    if (media.style.display === 'none') {
+      media.style.display = 'block';  // Show
+    } else {
+      media.style.display = 'none';   // Hide
+    }
+  });
+</script>
+---------------------------------------------------------------------------------------------------
