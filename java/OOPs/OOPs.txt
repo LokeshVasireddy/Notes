@@ -1,0 +1,172 @@
+Class:
+A class is a blueprint or template that defines the properties (data) and behaviors (methods) that objects of that type will have.
+
+Object:
+An object is an instance of a class that represents a real-world entity and contains actual values for the properties defined by the class.
+
+| Stack                                   | Heap                             |
+| --------------------------------------- | -------------------------------- |
+| Stores local variables and method calls | Stores objects and dynamic data  |
+| Memory managed automatically            | Memory managed manually or by GC |
+| Faster access                           | Slower access                    |
+| Limited size                            | Larger size                      |
+| Uses LIFO order                         | No specific order                |
+
+
+Instance variables are variables declared inside a class but outside methods, and each object (instance) of the class has its own separate copy of these variables. 
+They store data that is unique to each object and are created when an object is created.(belong to object not the class)
+
+Class Variables (Static Variables):
+Class variables are shared by all objects of the class. Only one copy exists in memory, and it belongs to the class itself, not to individual instances.
+
+this keyword:
+The this keyword is a reference variable that refers to the current object of the class and is used to access instance variables and methods of that object.
+
+Inheritance:-
+-----------
+Inheritance is an object-oriented programming concept in which one class (subclass/child class) acquires the properties and methods of another class (superclass/parent class).
+Promotes code reusability
+
+Achieved using the extends keyword in Java
+
+Supports IS-A relationship
+
+Enables method overriding
+
+
+Single, multi level,heirarchy,multiple(Ambiguity → compile-time error),hybrid
+
+// Parent class
+class Animal {
+    void eat() {
+        System.out.println("Animal eats");
+    }
+}
+
+// Child class
+class Dog extends Animal {
+    void bark() {
+        System.out.println("Dog barks");
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();   // Dog is an Animal
+        d.eat();             // inherited method
+        d.bark();            // child method
+    }
+}
+
+
+
+
+Polymorphism
+------------
+Compile time and runtime
+
+class Payment {
+    void pay() {
+        System.out.println("Processing payment");
+    }
+}
+
+class CardPayment extends Payment {
+    void pay() {
+        System.out.println("Card payment");
+    }
+}
+
+class UPIPayment extends Payment {
+    void pay() {
+        System.out.println("UPI payment");
+    }
+}
+
+
+// Parent class
+class Animal {
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+// Child class
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Dog();   // Upcasting
+        a.sound();              // Calls Dog's method
+    }
+}
+
+
+What is Encapsulation?
+Encapsulation is the process of wrapping data (variables) and methods together into a single unit and controlling access to the data.
+class BankAccount {
+    public double balance;
+}
+
+public class Main {
+    public static void main(String[] args) {
+        BankAccount acc = new BankAccount();
+        acc.balance = -10000;   // invalid but allowed ❌
+    }
+}
+
+
+
+Abstraction
+-----------
+Abstraction is the process of hiding implementation details and showing only essential features to the user.
+abstract class Vehicle {
+    abstract void start();
+
+    void fuelType() {
+        System.out.println("Uses fuel");
+    }
+}
+
+class Car extends Vehicle {
+    void start() {
+        System.out.println("Car starts with key");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Vehicle v = new Car();
+        v.start();
+        v.fuelType();
+    }
+}
+
+interface A {
+    void show();
+}
+
+interface B {
+    void show();
+}
+
+class C implements A, B {
+    public void show() {
+        System.out.println("Resolved");
+    }
+}
+
+Interfaces have no instance state
+
+No instance variables
+
+No constructors
+
+No memory collision

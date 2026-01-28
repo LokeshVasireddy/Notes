@@ -1,0 +1,238 @@
+
+For primitive data types passes by value for object passed by references
+
+| Data Type | Size          | Default Value | Range                 |
+| --------- | ------------- | ------------- | --------------------- |
+| `byte`    | 1 byte        | `0`           | -128 to 127           |
+| `short`   | 2 bytes       | `0`           | -32,768 to 32,767     |
+| `int`     | 4 bytes       | `0`           | -2³¹ to 2³¹−1         |
+| `long`    | 8 bytes       | `0L`          | -2⁶³ to 2⁶³−1         |
+| `float`   | 4 bytes       | `0.0f`        | ~6–7 decimal digits   |
+| `double`  | 8 bytes       | `0.0d`        | ~15–16 decimal digits |
+| `char`    | 2 bytes       | `'\u0000'`    | 0 to 65,535           |
+| `boolean` | JVM dependent | `false`       | `true` or `false`     |
+| Data Type         | Description                      | Example                      |
+| ----------------- | -------------------------------- | ---------------------------- |
+| `String`          | Sequence of characters           | `String s = "Java";`         |
+| `Array`           | Collection of same type elements | `int[] a = {1,2,3};`         |
+| `Class`           | User-defined blueprint           | `class Student {}`           |
+| `Object`          | Parent of all classes            | `Object obj = new Object();` |
+| `Interface`       | Abstract contract                | `interface Runnable {}`      |
+| `Enum`            | Fixed set of constants           | `enum Day {MON,TUE}`         |
+| `Wrapper Classes` | Object form of primitives        | `Integer, Double`            |
+| `Collections`     | Data structures                  | `List, Set, Map`             |
+
+
+| Language | Why                                                 |
+| -------- | --------------------------------------------------- |
+| C / C++  | Compiled directly to OS-specific machine code       |
+| Java     | Compiled to bytecode → runs on JVM                  |
+| Python   | Source interpreted by platform-specific interpreter |
+
+
+
+.java  →  javac  →  .class (bytecode)  →  JVM  →  Machine code
+
+
+🧠 What is JVM?
+
+JVM (Java Virtual Machine) is an abstract machine that:
+
+Executes Java bytecode
+
+Manages memory
+
+Handles garbage collection
+
+Provides runtime environment
+
+💡 JVM is platform dependent, but bytecode is platform independent.
+
+| Component | Purpose                           |
+| --------- | --------------------------------- |
+| JVM       | Runs bytecode                     |
+| JRE       | JVM + core libraries              |
+| JDK       | JRE + dev tools (javac, debugger) |
+Java compiles to bytecode
+
+JVM executes bytecode
+
+JVM handles memory, GC, threads, security
+
+Architecture = Class Loader + Memory + Execution Engine
+
+
+1️⃣ Class Loader Subsystem
+
+Responsible for loading .class files into JVM.
+
+Steps:
+
+Loading – reads .class file
+
+Linking
+
+Verification (bytecode safety)
+
+Preparation (static memory)
+
+Resolution (symbolic references)
+
+Initialization – static variables & blocks
+
+
+Execution Engine
+
+Executes bytecode.
+
+Components:
+
+Interpreter → executes line by line
+
+JIT Compiler → converts hot code to native machine code
+JIT (Just-In-Time) Compiler is a part of the JVM that converts frequently executed bytecode (“hot code”) into native machine code at runtime.
+
+Garbage Collector → frees unused objects
+
+Class Loader
+    ↓
+Bytecode Verifier
+    ↓
+Runtime Memory (Heap, Stack, Method Area)
+    ↓
+Execution Engine (Interpreter + JIT)
+    ↓
+Native OS / Hardware
+
+
+Strings
+------
+String s1 = "Java";
+Stored in String Constant Pool (SCP) (inside heap)
+
+String s3 = new String("Java");
+"Java" in SCP (if not present)
+
+New object in heap
+
+s1 == s3 → false
+
+
+
+
+
+| Type            | Mutability  | Thread-safe | Memory           | Speed            |
+| --------------- | ----------- | ----------- | ---------------- | ---------------- |
+| `String`        | ❌ Immutable | ✅ Yes       | Efficient (pool) | Slow for changes |
+| `StringBuilder` | ✅ Mutable   | ❌ No        | Heap             | Fast             |
+| `StringBuffer`  | ✅ Mutable   | ✅ Yes       | Heap             | Slower           |
+
+String s = "Java";
+s = s + " World";
+New String object is created in the heap, not in the String Pool.
+Why?
+Result is computed at runtime
+JVM does not automatically pool runtime strings
+
+
+
+Static language
+-------------
+Perform type checking at compile time
+Errors will show at compile time
+Declare datatype before using it
+More control
+Ex:- java, c,c++
+
+Dynamic language
+--------------
+Vice versa
+
+What Is Garbage Collection?
+
+Garbage collection (GC) is the process of automatically managing memory in a programming language — it frees up memory that’s no longer being used by the program.when there is no reference variable pointing towards the object.
+
+
+finalize() is a method of the Object class that is called by the Garbage Collector before an object is destroyed.
+protected void finalize() {
+    System.out.println("Object is garbage collected");
+}
+
+
+public
+
+Accessible from anywhere
+
+protected
+
+Accessible within the same package
+
+Also accessible in subclasses (even in different packages)
+
+default (no keyword)
+
+Accessible only within the same package
+
+private
+
+Accessible only within the same class
+
+
+
+Final
+--------
+final is used to restrict modification.
+Final variable → value cannot be changed
+
+Final method → cannot be overridden
+
+Final class → cannot be inherited
+
+
+| `final`                        | `static`                             |
+| ------------------------------ | ------------------------------------ |
+| Prevents change                | Shares across objects                |
+| Used for restriction           | Used for memory sharing              |
+| Can be variable, method, class | Used with variables, methods, blocks |
+| Value fixed                    | Value can change                     |
+
+
+
+OOPS
+-----
+Object
+An instance of a class stored in heap memory.
+
+Encapsulation = binding data + methods together and restricting direct access using access modifiers.
+class Student {
+    private int age;
+    public void setAge(int a) { age = a; }
+    public int getAge() { return age; }
+}
+
+
+Inheritance (IS-A relationship)
+
+Allows a class to inherit properties & methods of another class.
+class Parent {}
+class Child extends Parent {}
+
+
+Polymorphism (“many forms”)
+
+A. Compile-time Polymorphism (Method Overloading)
+
+Same method name, different parameters.
+void sum(int a, int b) {}
+void sum(double a, double b) {}
+
+
+method1 → method2 → method3
+If exception occurs in method3 and not handled → moves back to method2 → method1 → JVM.
+
+Custom Exceptions
+class AgeException extends Exception {
+    AgeException(String msg) { super(msg); }
+}
+
+
