@@ -236,3 +236,114 @@ class AgeException extends Exception {
 }
 
 
+
+
+
+
+1️⃣ Can a static block throw an exception?
+✅ Yes — but with rules
+static {
+    int x = 10 / 0;   // RuntimeException
+}
+
+Key points
+
+✅ Unchecked exceptions (RuntimeException) can be thrown
+
+❌ Checked exceptions cannot be thrown unless handled inside the block
+
+❌ Not allowed:
+
+static {
+    throw new IOException(); // compile-time error
+}
+
+
+✅ Allowed:
+
+static {
+    try {
+        throw new IOException();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+❗ What happens if an exception escapes?
+
+Class fails to load
+
+JVM throws ExceptionInInitializerError
+
+📌 Interview line:
+
+“Static blocks can throw unchecked exceptions; checked exceptions must be handled inside, otherwise class loading fails.”
+
+
+
+
+2️⃣ Why is String immutable in Java?
+Short answer (interview gold):
+
+For security, thread safety, performance, and caching.
+
+Detailed reasons
+🔐 Security
+
+Used in passwords, file paths, URLs, class loaders
+
+Prevents modification after creation
+
+🧵 Thread safety
+
+Immutable objects are inherently thread-safe
+
+No synchronization needed
+
+⚡ Performance (String Pool)
+
+JVM reuses strings from the String Constant Pool
+
+Immutability allows safe sharing
+
+🔑 HashCode caching
+
+String is widely used as a key in HashMap
+
+Cached hash value → faster lookups
+
+
+
+3️⃣ Is LinkedList in Java singly or doubly linked?
+✅ Doubly linked list
+java.util.LinkedList
+
+Why?
+
+Each node has:
+
+reference to previous
+
+reference to next
+
+Benefits
+
+Efficient:
+
+insertion
+
+deletion
+
+bidirectional traversal
+
+Tradeoff
+
+❌ More memory (extra pointer)
+
+❌ Slower random access than ArrayList
+
+📌 Interview line:
+
+“Java’s LinkedList is a doubly linked list, which allows efficient insertions and deletions in both directions.”
+
+

@@ -1,0 +1,139 @@
+Idempotency means:
+
+Performing the same operation multiple times produces the same result as performing it once.
+
+| HTTP Method | Idempotent? | Reason                                     |
+| ----------- | ----------- | ------------------------------------------ |
+| **GET**     | ✅ Yes       | Only fetches data                          |
+| **PUT**     | ✅ Yes       | Replaces resource completely               |
+| **DELETE**  | ✅ Yes       | Deleting again has no effect               |
+| **POST**    | ❌ No        | Creates new resource each time             |
+| **PATCH**   | ❌ Usually   | Partial update may change state repeatedly |
+
+✅ What is an ETag?
+
+ETag (Entity Tag) is a unique identifier provided by the server to represent the current version of a resource.
+
+🟢 First Request
+
+Client requests resource
+
+GET /users/1
+
+
+Server responds with data + ETag
+
+200 OK
+ETag: "v1a2b3"
+
+
+Client:
+
+Stores response
+
+Stores ETag
+
+🔁 Second Request (Conditional)
+
+Client sends:
+
+GET /users/1
+If-None-Match: "v1a2b3"
+
+
+Server checks:
+
+If resource unchanged
+
+➡️ Response:
+
+304 Not Modified
+
+
+(No body sent)
+
+✅ Client uses cached data
+
+| Status Code                 | Meaning                     |
+| --------------------------- | --------------------------- |
+| **200 OK**                  | Resource changed            |
+| **304 Not Modified**        | Resource unchanged          |
+| **412 Precondition Failed** | ETag mismatch (for updates) |
+
+
+IF-Match
+-------
+Client fetches resource + ETag
+
+Client sends update with If-Match
+
+Server checks:
+
+If ETag matches → update allowed
+
+If not → reject request
+
+➡️ Prevents lost updates in concurrent systems.
+
+| Type       | Example      | Meaning                                      |
+| ---------- | ------------ | -------------------------------------------- |
+| **Strong** | `"abc123"`   | Exact content match                          |
+| **Weak**   | `W/"abc123"` | Semantically same, minor differences allowed |
+
+
+
+✅ What is Pagination?
+
+Pagination is the technique of dividing large datasets into smaller chunks (pages) and returning them step-by-step instead of all at once.
+
+
+🔹 Types of Pagination (VERY IMPORTANT FOR MCQs)
+1️⃣ Offset-based Pagination
+2️⃣ Cursor-based Pagination
+3️⃣ Page-based Pagination
+
+
+1️⃣ Offset-Based Pagination
+limit → how many records
+
+offset → how many to skip
+
+
+Slow for large offsets
+
+Duplicate / missing records if data changes
+
+Not scalable
+
+
+| Level     | Meaning       | Usage           |
+| --------- | ------------- | --------------- |
+| **DEBUG** | Detailed info | Dev debugging   |
+| **INFO**  | Normal events | App flow        |
+| **WARN**  | Something odd | Not fatal       |
+| **ERROR** | Failure       | Needs attention |
+| **FATAL** | App crash     | System stopping |
+
+
+❌ Logging improves performance → WRONG
+
+❌ Logs replace monitoring → WRONG
+
+❌ DEBUG logs in production are safe → WRONG
+
+❌ Logs should store sensitive data → WRONG
+
+
+
+
+
+What is an Audit?
+
+Audit means:
+
+Recording and reviewing who did what, when, and sometimes why, to ensure accountability, compliance, and traceability.
+
+
+✅ What is the Bulkhead Pattern?
+
+The Bulkhead Pattern is a fault-isolation design pattern that prevents a failure in one part of a system from bringing down the entire system.

@@ -31,6 +31,17 @@ Speed up searches
 | Example    | `SELECT`, `JOIN`, `GROUP BY`    | `LIMIT`, `AUTO_INCREMENT` |
 
 
+| Constraint  | Purpose           |
+| ----------- | ----------------- |
+| PRIMARY KEY | Unique + not null |
+| FOREIGN KEY | Link tables       |
+| UNIQUE      | No duplicates     |
+| NOT NULL    | Mandatory field   |
+| CHECK       | Custom condition  |
+| DEFAULT     | Default value     |
+
+
+
 
 
 sql query for the 3rd highest salary of an emp
@@ -61,3 +72,219 @@ WHERE hire_date >= DATEADD(MONTH, -6, GETDATE());
 SELECT *
 FROM Employee
 WHERE hire_date >= CURRENT_DATE - INTERVAL '6' MONTH;
+
+
+
+UPDATE students
+SET marks = 95
+WHERE id = 1;
+
+INSERT INTO students (name, age)
+VALUES ('Rahul', 21);
+
+Insert from another table
+-----------------------
+INSERT INTO toppers
+SELECT * FROM students WHERE marks > 90;
+
+
+
+
+DISTINCT is used to remove duplicate rows from the result set.
+SELECT DISTINCT column_name
+FROM table_name;
+
+
+ALL
+----
+Greater than ALL values
+SELECT *
+FROM employees
+WHERE salary > ALL (
+    SELECT salary
+    FROM employees
+    WHERE department = 'HR'
+);
+
+IN
+---
+Check multiple values at once:
+
+SELECT * FROM students
+WHERE age IN (20, 22);
+
+
+BETWEEN
+-------
+Range check:
+
+SELECT * FROM students
+WHERE marks BETWEEN 80 AND 95;
+
+3) LIKE
+--------
+For pattern matching (mostly used with strings):
+SELECT * FROM students
+WHERE name LIKE 'A%';   -- starts with A
+
+ORDER BY (Sorting Results)
+--------------
+SELECT column1, column2
+FROM table_name
+ORDER BY column_name ASC|DESC;
+
+
+LIMIT (Restrict Number of Rows)
+-----------------------
+SELECT * FROM table_name
+LIMIT number;
+
+
+LIMIT with OFFSET (Skip some rows)
+-------------------------------
+SELECT * FROM students
+ORDER BY marks DESC
+LIMIT 3 OFFSET 2;
+
+
+| Function  | Meaning        |
+| --------- | -------------- |
+| `COUNT()` | Number of rows |
+| `SUM()`   | Total sum      |
+| `AVG()`   | Average        |
+| `MIN()`   | Minimum value  |
+| `MAX()`   | Maximum value  |
+
+
+
+GROUP BY
+-------
+HAVING Clause
+
+WHERE works on rows before grouping,
+HAVING works on groups after grouping
+
+SELECT customer, SUM(amount) AS total_spent
+FROM orders
+GROUP BY customer
+HAVING SUM(amount) > 4000;
+
+
+SELECT customer, SUM(amount)
+FROM orders
+WHERE item = 'Shoes'
+GROUP BY customer;
+
+Joins
+-----
+SELECT s.sid, s.name, m.marks
+FROM students s
+INNER JOIN marks m
+ON s.sid = m.sid;
+
+
+FULL OUTER JOIN
+-------------
+Returns all rows from both tables.
+Matches → combine
+No match → NULL values
+
+SELECT s.sid, s.name, m.marks
+FROM students s
+FULL OUTER JOIN marks m
+ON s.sid = m.sid;
+
+CROSS JOIN
+SELF JOIN
+
+
+IMP
+---
+SELECT s.*
+FROM students s
+LEFT JOIN marks m
+ON s.sid = m.sid
+WHERE m.sid IS NULL;
+
+
+EXISTS
+------
+SELECT *
+FROM Orders o
+WHERE EXISTS (
+    SELECT 1
+    FROM Customers c
+    WHERE c.customer_id = o.customer_id
+);
+
+
+SQL DELETE
+--------
+DELETE FROM students
+WHERE id = 3;
+
+| Command  | Deletes Data | Deletes Structure | Rollback           | WHERE allowed |
+| -------- | ------------ | ----------------- | ------------------ | ------------- |
+| DELETE   | ✅            | ❌                 | ✅ (if transaction) | ✅             |
+| TRUNCATE | ✅            | ❌                 | ❌                  | ❌             |
+| DROP     | ✅            | ✅                 | ❌                  | ❌             |
+
+
+TRUNCATE TABLE students;
+Faster than DELETE
+Cannot filter rows
+
+DROP TABLE students;
+Table is gone completely 
+
+
+
+
+
+SELECT name,
+       CASE 
+           WHEN marks >= 90 THEN 'Excellent'
+           WHEN marks >= 75 THEN 'Good'
+           ELSE 'Average'
+       END AS performance
+FROM students;
+
+
+ALTER
+------
+ALTER is used to change the structure of an existing table
+➡️ schema change, not data change.
+
+1️⃣ Add a column
+ALTER TABLE employees
+ADD age INT;
+
+2️⃣ Modify a column
+ALTER TABLE employees
+MODIFY age BIGINT;
+
+3️⃣ Rename a column
+ALTER TABLE employees
+RENAME COLUMN age TO employee_age;
+
+4️⃣ Drop a column
+ALTER TABLE employees
+DROP COLUMN age;
+
+5️⃣ Add a constraint
+ALTER TABLE employees
+ADD CONSTRAINT chk_age CHECK (age >= 18);
+
+6️⃣ Drop a constraint
+ALTER TABLE employees
+DROP CHECK chk_age;
+
+Add / Drop NOT NULL
+ALTER TABLE employees
+MODIFY name VARCHAR(50) NOT NULL;
+
+ALTER TABLE employees
+MODIFY name VARCHAR(50);
+
+
+
